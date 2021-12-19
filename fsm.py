@@ -56,7 +56,6 @@
 
 
 
-
 # from transitions.extensions import GraphMachine
 
 # from utils import send_text_message, send_image_url, send_food_message, add_food_message, send_allfood_message, delete_food_message, is_food
