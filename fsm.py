@@ -39,253 +39,280 @@
 
 from transitions.extensions import GraphMachine
 
-from utils import (
-    SwitchMenuTo, show_new_movies, show_hot_movies,
-    show_movie_leaderboard, show_hot_movies_pre, show_movies_news,
-    search_moive, animate_new_season, show_animate_leaderboard,
-    show_hot_animate,
-    show_animates_news,
-    search_animate,
-    add_favorite,
-    favorite_movies,
-    favorite_animates,
-    my_favorite_confirm,
-    show_favorite,
-    delete_favorite,
-    push_text_message,
-    push_template_message,
-    do_game
-)
+import os
+import sys
 
-machine = {}
-favorite_state = {}
+from flask import Flask, jsonify, request, abort, send_file
+from dotenv import load_dotenv
+from linebot import LineBotApi, WebhookParser
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, FlexSendMessage
+from linebot.models import ImageCarouselColumn, URITemplateAction, MessageTemplateAction
+
+from utils import send_text_message, send_carousel_message, send_button_message, send_image_message
+
+import requests as rs
+from bs4 import BeautifulSoup
+import pandas as pd
+import numpy as np
+import twstock
+
+import time,datetime
+from datetime import datetime,timezone,timedelta
+
+stock_number=0
+dt = datetime.utcnow()
+dt = dt.replace(tzinfo=timezone.utc)
+tzutc_8 = timezone(timedelta(hours=8))
+local_dt = dt.astimezone(tzutc_8)
+local_dt=str(local_dt)
+hour_time=local_dt[11]+local_dt[12]+local_dt[14]+local_dt[15]
+hour_time=int(hour_time)
+print(hour_time)
+weekdays=int(datetime.today().weekday())
+
+
+#import message_template
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
 
-    def is_going_to_main_menu(self, event):
+    def is_going_to_menu(self, event):
         text = event.message.text
-        return text.lower() == "返回主選單"
+        return text == "早安" 
 
-    def on_enter_main_menu(self, event):
-        SwitchMenuTo("mainmenu", event)
-        push_text_message(event, "歡迎來到Have Fun!")
-        push_text_message(event, "請使用下方選單進行操作~")
+    def on_enter_menu(self, event):
+        title = '請選擇您要查詢的項目'
+        text = '『匯率』還是『台灣股市』還是『查看fsm結構圖』'
+        btn = [
+            MessageTemplateAction(
+                label = '匯率',
+                text ='匯率'
+            ),
+            MessageTemplateAction(
+                label = '台灣股市',
+                text = '台灣股市'
+            ),
+        ]
+        url = 'https://image.flaticon.com/icons/png/512/438/438526.png'
+        send_button_message(event.reply_token, title, text, btn, url)
 
-    def is_going_to_movie_lobby(self, event):
+
+    def is_going_to_exchange(self, event):
         text = event.message.text
-        return text.lower() == "電影選單"
+        if (text == '匯率'):
+            return True
+        return False
 
-    def is_going_to_movie_lobby_postback(self, event):
-        text = event.postback.data
-        return text.lower() == "返回電影選單"
+    def on_enter_exchange(self, event):
+        title = '請選擇您要查詢的幣別'
+        text = '『美金』 『日元』 『人民幣』 『其他』'
+        btn = [
+            MessageTemplateAction(
+                label = '美金',
+                text ='美金'
+            ),
+            MessageTemplateAction(
+                label = '日元',
+                text = '日元'
+            ),
+            MessageTemplateAction(
+                label = '人民幣',
+                text = '人民幣'
+            ),
+            MessageTemplateAction(
+                label = '其他',
+                text = '其他'
+            ),
+        ]
+        url = 'https://i.imgur.com/MPY9qbQ.png'
+        send_button_message(event.reply_token, title, text, btn, url)
 
-    def on_enter_movie_lobby(self, event):
-        SwitchMenuTo("moviemenu", event)
-
-    #def on_exit_movie_lobby(self):
-    #    print("Leaving movie_lobby")
-
-    def is_going_to_animation_lobby(self, event):
+    def is_going_to_exchange_USD(self, event):
         text = event.message.text
-        return text.lower() == "動畫選單" or text.lower() == "返回動畫選單"
+        return text == "美金"
 
-    def is_going_to_animation_lobby_postback(self, event):
-        text = event.postback.data
-        return text.lower() == "返回動畫選單"
+    def on_enter_exchange_USD(self, event):
+        index=1
+        value_USD = get_exchange_value(index)
+        reply_token = event.reply_token
+        send_text_message(reply_token, str(value_USD+'\n輸入「早安」回到主選單'))
+        self.go_back()
 
-    def on_enter_animation_lobby(self, event):
-        SwitchMenuTo("animatemenu", event)
-
-    def is_going_to_game_lobby(self, event):
+    def is_going_to_exchange_JPY(self, event):
         text = event.message.text
-        return text.lower() == "遊戲選單"
+        return text == "日元"
 
-    def on_enter_game_lobby(self, event):
-        SwitchMenuTo("gamemenu", event)
-        push_text_message(event, "歡迎來到猜拳小遊戲")
-        push_text_message(event, "請選擇下方選項~")
+    def on_enter_exchange_JPY(self, event):
+        index=2
+        value_JPY = get_exchange_value(index)
+        reply_token = event.reply_token
+        send_text_message(reply_token, str(value_JPY+'\n輸入「早安」回到主選單'))
+        self.go_back()
 
-    def is_going_to_new_movie(self, event):
+    def is_going_to_exchange_CNY(self, event):
         text = event.message.text
-        return text.lower() == "最新電影"
+        return text == "人民幣"
 
-    def on_enter_new_movie(self, event):
-        show_new_movies(event)
-        self.go_back_movie_lobby(event)
+    def on_enter_exchange_CNY(self, event):
+        index=3
+        value_CNY = get_exchange_value(index)
+        reply_token = event.reply_token
+        send_text_message(reply_token, str(value_CNY+'\n輸入「早安」回到主選單'))
+        self.go_back()
 
-    def is_going_to_movie_leaderboard(self, event):
+    def is_going_to_exchange_else(self, event):
         text = event.message.text
-        return text.lower() == "排行榜"
+        return text == "其他"
 
-    def on_enter_movie_leaderboard(self, event):
-        show_movie_leaderboard(event)
-        self.go_back_movie_lobby(event)
+    def on_enter_exchange_else(self, event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "請至台灣銀行官網查詢： \n https://rate.bot.com.tw/xrt?Lang=zh-TW"+'\n輸入「早安」回到主選單')
+        self.go_back()
 
-    def is_going_to_hot_movie(self, event):
-        text = event.postback.data
-        return text.lower() == "台北票房榜" or text.lower() == "全美票房榜" or text.lower() == "年度票房榜" or text.lower() == "預告片榜"
 
-    def on_enter_hot_movie(self, event):
-        text = event.postback.data
-        if text.lower() == "預告片榜":
-            show_hot_movies_pre(event)
+    def is_going_to_stock(self, event):
+        text = event.message.text
+        if text == '台灣股市':
+            return True
+        return False
+
+    def on_enter_stock(self, event):
+        title = '請選擇您要查詢的項目'
+        text = '『股票股價』 『股票基本面』『其他』'
+        btn = [
+            MessageTemplateAction(
+                label = '股票股價',
+                text ='股票股價'
+            ),
+            MessageTemplateAction(
+                label = '股票基本面',
+                text = '股票基本面'
+            ),
+            MessageTemplateAction(
+                label = '其他資訊',
+                text = '其他資訊'
+            ),
+
+        ]
+        url = 'https://i.imgur.com/DwpLSha.png'
+        send_button_message(event.reply_token, title, text, btn, url)
+
+    def is_going_to_price(self, event):
+        text = event.message.text
+        return text == "股票股價"
+    
+    def on_enter_price(self, event):
+        send_text_message(event.reply_token, '請輸入股票代碼')
+
+    
+    def is_going_to_show_price(self, event):
+        global stock_number
+        text = event.message.text
+        stock_number=str(text)
+        return True
+    
+    def on_enter_show_price(self, event):
+        global stock_number
+        stock = twstock.Stock(stock_number)
+        reply_token = event.reply_token
+        
+        
+
+        if weekdays==5 or weekdays==6:
+            send_text_message(reply_token, '今日為週末，未開盤 \n近5個開盤日股價為： \n'+ str(stock.price[-5:])+'\n輸入「早安」回到主選單')
         else:
-            show_hot_movies(event, text.lower())
-        self.go_back_movie_lobby(event)
+            if hour_time<900:
+                send_text_message(reply_token, '今日尚未開盤\n近5個開盤日股價為： \n'+ str(stock.price[-5:])+'\n輸入「早安」回到主選單')
+            elif hour_time>=900 and hour_time<1330:
+                send_text_message(reply_token, '目前開盤中，查詢時間為：'+str(local_dt)+'\n 近4個開盤日股價及現在股價為： \n'+ str(stock.price[-5:])+'\n輸入「早安」回到主選單')
+            elif hour_time>=1330:
+                send_text_message(reply_token, '今日已收盤\n近4個開盤日股價及今日收盤股價為： \n'+ str(stock.price[-5:])+'\n輸入「早安」回到主選單')
+                
+        self.go_back()
 
-    def is_going_to_movie_news(self, event):
+
+    def is_going_to_technical(self, event):
         text = event.message.text
-        return text.lower() == "電影新聞"
+        return text == "股票基本面"
+    
+    def on_enter_technical(self, event):
+        send_text_message(event.reply_token, '請輸入股票代碼')
 
-    def on_enter_movie_news(self, event):
-        show_movies_news(event)
-        self.go_back_movie_lobby(event)
-
-    def is_going_to_search_movie(self, event):
+    
+    def is_going_to_show_technical(self, event):
+        global stock_number
         text = event.message.text
-        return text.lower() == "查電影"
+        stock_number=str(text)
+        return True
+    
+    def on_enter_show_technical(self, event):
+        global stock_number
+        stock = twstock.Stock(stock_number)
+        bfp = twstock.BestFourPoint(stock)
+        comment=bfp.best_four_point_to_buy()
+        reply_token = event.reply_token
+        send_text_message(reply_token, '請至以下網址查詢： \n'+'https://tw.stock.yahoo.com/q/ta?s='+ str(stock_number)+'\n簡評：'+str(comment)+'\n\n輸入「早安」回到主選單')
+        self.go_back()
 
-    def on_enter_search_movie(self, event):
-        SwitchMenuTo("searchmovie", event)
-        push_text_message(event, "請輸入欲查詢電影!")
-
-    def on_enter_do_search_movie(self, event):
-        search_moive(event, event.message.text)
-        self.go_back_movie_lobby(event)
-
-    def on_enter_animate_new_season(self, event):
-        SwitchMenuTo("seasonanimate", event)
-
-    def is_going_to_animate_new_season(self, event):
+    def is_going_to_stock_else(self, event):
         text = event.message.text
-        return text.lower() == "本季新作"
+        return text == "其他資訊"
 
-    def on_enter_do_animate_new_season(self, event):
-        animate_new_season(event, event.postback.data)
-        self.go_back_animate_new_season(event)
+    def on_enter_stock_else(self, event):
+        reply_token = event.reply_token
+        send_text_message(reply_token, "請至台灣證交所官網查詢： \nhttps://www.twse.com.tw/zh/"+'\n輸入「早安」回到主選單')
+        self.go_back()
+    
+    def is_going_to_show_fsm_pic(self,event):
+        text=event.message.text
+        return text.lower()=='fsm'
+        
+    def on_enter_show_fsm_pic(self,event):
+        reply_token = event.reply_token
+        url='https://raw.githubusercontent.com/CrazyRyan0812/CrazyRyan-TOC/master/fsm.png'
+        send_image_message(reply_token, url)
+        self.go_back()
 
-    def is_going_to_do_animate_new_season(self, event):
-        text = event.postback.data
-        return text.lower() == "週一" or text.lower() == "週二" or text.lower() == "週三" or text.lower() == "週四" or text.lower() == "週五" or text.lower() == "週六" or text.lower() == "週日"
 
-    def is_going_to_animate_leaderboard(self, event):
-        text = event.message.text
-        return text.lower() == "排行榜"
-
-    def on_enter_animate_leaderboard(self, event):
-        show_animate_leaderboard(event)
-        self.go_back_animation_lobby(event)
-
-    def is_going_to_hot_animate(self, event):
-        text = event.postback.data
-        return text.lower() == "人氣" or text.lower() == "評分" or text.lower() == "期待"
-
-    def on_enter_hot_animate(self, event):
-        text = event.postback.data
-        show_hot_animate(event, text.lower())
-        self.go_back_animation_lobby(event)
-
-    def is_going_to_animate_news(self, event):
-        text = event.message.text
-        return text.lower() == "動畫新聞"
-
-    def on_enter_animate_news(self, event):
-        show_animates_news(event)
-        self.go_back_animation_lobby(event)
-
-    def is_going_to_search_animate(self, event):
-        text = event.message.text
-        return text.lower() == "查動畫"
-
-    def on_enter_search_animate(self, event):
-        SwitchMenuTo("searchanimate", event)
-        push_text_message(event, "請輸入欲查詢動畫!")
-
-    def on_enter_do_search_animate(self, event):
-        search_animate(event, event.message.text)
-        self.go_back_animation_lobby(event)
-
-    def is_going_to_add_favorite(self, event):
-        text = event.postback.data
-        data = text.split(',')[0]
-        return data == 'movie' or data == 'animate' or data == 'animatehot'
-
-    def on_enter_add_favorite(self, event):
-        text = event.postback.data
-        data = text.split(',')[0]
-        add_favorite(event, text)
-        if data == 'movie':
-            self.go_back_movie_lobby(event)
-        elif data == 'animate':
-            self.go_back_animation_lobby(event)
-        else:
-            self.go_back_animate_new_season(event)
-
-    def is_going_to_my_favorite(self, event):
-        text = event.message.text
-        favorite_state[event.source.user_id] = machine[event.source.user_id].state
-        return text == '我的最愛'
-
-    def is_going_to_my_favorite_postback(self, event):
-        text = event.postback.data
-        favorite_state[event.source.user_id] = machine[event.source.user_id].state
-        return text == '我的最愛'
-
-    def is_going_to_show_favorite_my(self, event):
-        text = event.message.text
-        return text == '返回我的最愛'
-
-    def on_enter_my_favorite(self, event):
-        SwitchMenuTo("myfavorite", event)
-        my_favorite_confirm(event)
-        push_text_message(event, "這是我的最愛唷!")
-
-    def is_going_to_show_favorite(self, event):
-        text = event.postback.data
-        return text == '動畫' or text == '電影'
-
-    def on_enter_show_favorite(self, event):
-        SwitchMenuTo("backmyfavorite", event)
-        text = event.postback.data
-        show_favorite(event, text)
-
-    def is_going_to_leave_favorite(self, event):
-        text = event.message.text
-        return text == '返回'
-
-    def on_enter_leave_favorite(self, event):
-        if favorite_state[event.source.user_id] == "main_menu":
-            self.go_back_main_menu(event)
-        elif favorite_state[event.source.user_id] == "movie_lobby":
-            self.go_back_movie_lobby(event)
-        elif favorite_state[event.source.user_id] == "animation_lobby":
-            self.go_back_animation_lobby(event)
-        elif favorite_state[event.source.user_id] == "search_movie":
-            self.go_back_search_movie(event)
-        elif favorite_state[event.source.user_id] == "animate_new_season":
-            self.go_back_animate_new_season(event)
-        elif favorite_state[event.source.user_id] == "search_animate":
-            self.go_back_search_animate(event)
-
-    def is_going_to_delete_favorite(self, event):
-        text = event.postback.data
-        data = text.split(',')[0]
-        return data == 'delete'
-
-    def on_enter_delete_favorite(self, event):
-        text = event.postback.data
-        data = text.split(',')
-        text = data[1]+','+data[2]
-        event.postback.data = data[1]
-        delete_favorite(event, text)
-        self.go_back_show_favorite(event)
-
-    def is_going_to_do_game(self, event):
-        text = event.message.text
-        return text == '石頭' or text == '剪刀' or text == '布'
-
-    def on_enter_do_game(self, event):
-        do_game(event, event.message.text)
-        self.go_back_game_lobby(event)
+def get_exchange_value(index):
+    if index==1:
+        res = rs.get('https://rate.bot.com.tw/xrt/quote/ltm/USD')
+    elif index==2:
+        res = rs.get('https://rate.bot.com.tw/xrt/quote/ltm/JPY')
+    elif index==3:
+        res = rs.get('https://rate.bot.com.tw/xrt/quote/ltm/CNY')
+    # get html
+    res.encoding = 'utf-8'
+    # get data table
+    soup = BeautifulSoup(res.text, 'lxml')
+    table = soup.find('table', {'class': 'table table-striped table-bordered table-condensed table-hover'})
+    table = table.find_all('tr')
+    # remove table title
+    table = table[2:]
+    # add to dataframe
+    col = ['掛牌日期', '幣別', '現金買入', '現金賣出', '匯率買入', '匯率賣出']
+    data = []
+    for row in table:
+        row_data = []
+        date = row.find('td',{'class':'text-center'}).text
+        currency = row.find('td',{'class':'text-center tablet_hide'}).text
+        cash = row.find_all('td',{'class':'rate-content-cash text-right print_table-cell'})
+        sight = row.find_all('td',{'class':'rate-content-sight text-right print_table-cell'})
+        row_data.append(date)
+        row_data.append(currency)
+        row_data.append(cash[0].text)
+        row_data.append(cash[1].text)
+        row_data.append(sight[0].text)
+        row_data.append(sight[1].text)
+        data.append(row_data)
+    df = pd.DataFrame(data)
+    df.columns = col
+    df['掛牌日期'] = pd.to_datetime(df['掛牌日期'])
+    df.set_index('掛牌日期', inplace=True)
+    # value query
+    pre_output=df.iloc[0]
+    pre_output=str(pre_output)[:-24]
+    output = pre_output.replace('Name: ','牌告日期：')
+    return output

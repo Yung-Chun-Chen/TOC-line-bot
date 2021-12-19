@@ -134,13 +134,101 @@ from flask import Flask, jsonify, request, abort, send_file
 from dotenv import load_dotenv
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, PostbackEvent
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
-from fsm import TocMachine, favorite_state, machine
-from utils import favorite_movies, favorite_animates, win_game
-from machine_data import  machineData
+from fsm import TocMachine
+from utils import send_text_message
 
 load_dotenv()
+
+
+machine = TocMachine(
+    states=["user", "menu", "exchange","stock","exchange_USD", "exchange_JPY","exchange_CNY","exchange_else","show_fsm_pic", "price", "show_price","technical","show_technical","stock_else"],
+    transitions=[
+        { #第1階段
+            "trigger": "advance",
+            "source": "user",
+            "dest": "menu",
+            "conditions": "is_going_to_menu",
+        },
+        { #第2-1-查詢匯率
+            "trigger": "advance",
+            "source": "menu",
+            "dest": "exchange",
+            "conditions": "is_going_to_exchange",
+        },
+        { #第2-2-查詢股票
+            "trigger": "advance",
+            "source": "menu",
+            "dest": "stock",
+            "conditions": "is_going_to_stock",
+        },
+        { #第3-1 美金
+            "trigger": "advance",
+            "source": "exchange",
+            "dest": "exchange_USD",
+            "conditions": "is_going_to_exchange_USD",
+        },
+        { #第3-2 日元
+            "trigger": "advance",
+            "source": "exchange",
+            "dest": "exchange_JPY",
+            "conditions": "is_going_to_exchange_JPY",
+        },
+        { #第3-3 人民幣
+            "trigger": "advance",
+            "source": "exchange",
+            "dest": "exchange_CNY",
+            "conditions": "is_going_to_exchange_CNY",
+        },
+        { #第3-4 其他
+            "trigger": "advance",
+            "source": "exchange",
+            "dest": "exchange_else",
+            "conditions": "is_going_to_exchange_else",
+        },
+        { #第4-1-查詢股價
+            "trigger": "advance",
+            "source": "stock",
+            "dest": "price",
+            "conditions": "is_going_to_price",
+        },
+        { #第4-1-1-查詢股價結果
+            "trigger": "advance",
+            "source": "price",
+            "dest": "show_price",
+            "conditions": "is_going_to_show_price",
+        },
+        { #第4-2-股票基本面
+            "trigger": "advance",
+            "source": "stock",
+            "dest": "technical",
+            "conditions": "is_going_to_technical",
+        },
+        { #第4-2-1-查詢股票基本面
+            "trigger": "advance",
+            "source": "technical",
+            "dest": "show_technical",
+            "conditions": "is_going_to_show_technical",
+        },
+        { #第4-3-查詢其他
+            "trigger": "advance",
+            "source": "stock",
+            "dest": "stock_else",
+            "conditions": "is_going_to_stock_else",
+        },
+        {
+            "trigger": "advance",
+            "source": "user",
+            "dest": "show_fsm_pic",
+            "conditions": "is_going_to_show_fsm_pic",
+        },
+        {"trigger": "go_back", "source": ["menu", "exchange","stock","exchange_USD", "exchange_JPY","exchange_CNY","exchange_else","show_fsm_pic", "price", "show_price","technical","show_technical","stock_else"], "dest": "user"},
+    ],
+    initial="user",
+    auto_transitions=False,
+    show_conditions=True,
+)
 
 app = Flask(__name__, static_url_path="")
 
@@ -158,60 +246,39 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
-@app.route("/callback", methods=["POST"])
-def callback():
+@app.route("/webhook", methods=["POST"])
+def webhook_handler():
     signature = request.headers["X-Line-Signature"]
     # get request body as text
     body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
+    app.logger.info(f"Request body: {body}")
 
     # parse webhook body
     try:
         events = parser.parse(body, signature)
     except InvalidSignatureError:
         abort(400)
-		
+
+    # if event is MessageEvent and message is TextMessage, then echo text
     for event in events:
-        if event.source.user_id not in machine:
-            machine[event.source.user_id] = TocMachine(
-                states=machineData["states"],
-                transitions=machineData["transitions"],
-                initial=machineData["initial"],
-                auto_transitions=machineData["auto_transitions"],
-                show_conditions=machineData["show_conditions"]
-            )
-        if event.source.user_id not in favorite_movies:
-            favorite_movies[event.source.user_id] = []
-        if event.source.user_id not in favorite_animates:
-            favorite_animates[event.source.user_id] = []
-        if event.source.user_id not in win_game:
-            win_game[event.source.user_id] = 0
-        if isinstance(event, MessageEvent):
-            if isinstance(event.message, TextMessage) and isinstance(event.message.text, str):
-                response = machine[event.source.user_id].advance(event)
-        elif isinstance(event, PostbackEvent):
-            if isinstance(event.postback.data, str):
-                response = machine[event.source.user_id].advance_postback(event)
-        print(f"\nFSM STATE: {machine[event.source.user_id].state}")
+        if not isinstance(event, MessageEvent):
+            continue
+        if not isinstance(event.message, TextMessage):
+            continue
+        if not isinstance(event.message.text, str):
+            continue
+        print(f"\nFSM STATE: {machine.state}")
         print(f"REQUEST BODY: \n{body}")
-        #if response == False:
-            #send_text_message(event.reply_token, "Not Entering any State")
+        response = machine.advance(event)
+        if response == False:
+            send_text_message(event.reply_token, "Not Entering any State")
 
     return "OK"
-	
 
 
 @app.route("/show-fsm", methods=["GET"])
 def show_fsm():
-    if "graph" not in machine:
-        machine["graph"] = TocMachine(
-            states=machineData["states"],
-            transitions=machineData["transitions"],
-            initial=machineData["initial"],
-            auto_transitions=machineData["auto_transitions"],
-            show_conditions=machineData["show_conditions"]
-        )
-    machine["graph"].get_graph().draw("fsm.png", prog="dot", format="png")
+    machine.get_graph().draw("fsm.png", prog="dot", format="png")
     return send_file("fsm.png", mimetype="image/png")
 
 
