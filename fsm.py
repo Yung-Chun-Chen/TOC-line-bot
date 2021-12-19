@@ -683,3 +683,4 @@ class TocMachine(GraphMachine):
             print(TocMachine.Idinner['money'],"dinner")
             print("in chilipork")
         self.go_money(event,"dinner")
+        
