@@ -1,177 +1,6 @@
-# from transitions.extensions import GraphMachine
-
-# from utils import send_text_message
-
-
-# class TocMachine(GraphMachine):
-#     def __init__(self, **machine_configs):
-#         self.machine = GraphMachine(model=self, **machine_configs)
-
-#     def is_going_to_state1(self, event):
-#         text = event.message.text
-#         return text.lower() == "go to state1"
-
-#     def is_going_to_state2(self, event):
-#         text = event.message.text
-#         return text.lower() == "go to state2"
-
-#     def is_going_to_state3(self, event):
-#         text = event.message.text
-#         return text.lower() == "go to state3"
-
-# #
-#     def on_enter_state1(self, event):
-#         print("I'm entering state1")
-
-#         reply_token = event.reply_token
-#         send_text_message(reply_token, "Trigger state1")
-#         self.go_back()
-
-#     def on_exit_state1(self):
-#         print("Leaving state1")
-
-# #
-#     def on_enter_state2(self, event):
-#         print("I'm entering state2")
-
-#         reply_token = event.reply_token
-#         send_text_message(reply_token, "Trigger state2")
-#         self.go_back()
-
-#     def on_exit_state2(self):
-#         print("Leaving state2")
-
-# #
-#     def on_enter_state3(self, event):
-#         print("I'm entering state3")
-
-#         reply_token = event.reply_token
-#         send_text_message(reply_token, "Trigger state3")
-#         self.go_back()
-
-#     def on_exit_state3(self):
-#         print("Leaving state3")
-
-
-
-
-
-# from transitions.extensions import GraphMachine
-
-# from utils import send_text_message, send_image_url, send_food_message, add_food_message, send_allfood_message, delete_food_message, is_food
-
-# class TocMachine(GraphMachine):
-#     def __init__(self, **machine_configs):
-#         self.machine = GraphMachine(model=self, **machine_configs)
-
-#     def is_going_to_choosefood(self, event):
-#         text = event.message.text
-#         return text.lower() == "吃什麼"
-
-#     def is_going_to_all_food(self, event):
-#         text = event.message.text
-#         return text.lower() == "有什麼"
-
-#     def is_adding_food(self,event):
-#         text = event.message.text
-#         return text.lower() == "加食物"
-
-#     def is_deleting_food(self, event):
-#         text = event.message.text
-#         return text.lower() == "刪食物"
-
-#     def not_empty(self, event):
-#         text = event.message.text
-#         return (text.lower() != "" and not(is_food(text.lower())))
-
-#     def food_is_in_list(self, event):
-#         text = event.message.text
-#         return is_food(text.lower())
-
-#     def food_isnot_in_list(self, event):
-#         text = event.message.text
-#         return not(is_food(text.lower()))
-
-#     def is_showing_foodphoto(self, event):
-#         text = event.message.text
-#         return text.lower() == "照片"
-
-#     def on_enter_choosefood(self, event):
-#         print("choose one food")
-#         reply_token = event.reply_token
-#         send_food_message(reply_token)
-#         self.go_back()
-
-#     def on_exit_choosefood(self):
-#         print("Leaving state1")
-
-#     def on_enter_all_food(self, event):
-#         print("I'm entering state2")
-#         reply_token = event.reply_token
-#         send_allfood_message(reply_token)
-#         self.go_back()
-
-#     def on_exit_all_food(self):
-#         print("Leaving state2")
-        
-#     def on_enter_add_food(self, event):
-#         print("I'm adding food")
-#         reply_token = event.reply_token
-#         send_text_message(reply_token, "請輸入要新增的食物")
-
-#     def on_exit_add_food(self, event):
-#         print("Leaving add_food")
-#         reply_token = event.reply_token
-#         add_food_message(event.message.text.lower())
-#         send_text_message(reply_token, "已新增")
-
-#     def on_enter_delete_food(self, event):
-#         print("I'm deleting food")
-#         reply_token = event.reply_token
-#         send_text_message(reply_token, "請輸入要刪除的食物")
-
-#     def on_exit_delete_food(self, event):
-#         print("Leaving delete_food")
-
-#     def on_enter_have_food(self, event):
-#         print("food deleted")
-#         reply_token = event.reply_token
-#         delete_food_message(event.message.text.lower())
-#         send_text_message(reply_token, "已刪除")
-#         self.go_back()
-
-#     def on_exit_have_food(self, event):
-#         print("Leaving have_food")
-
-#     def on_enter_show_foodphoto(self, event):
-#         print("show food photo")
-#         reply_token = event.reply_token
-#         send_image_url(reply_token)
-#         self.go_back()
-
-#     def on_exit_show_foodphoto(self):
-#         print("Leaving show_foodphoto")
-
-#     def on_enter_no_food(self, event):
-#         print("I'm entering no_food")
-#         reply_token = event.reply_token
-#         send_text_message(reply_token, "清單中沒有該食物")
-#         self.go_back()
-
-#     def on_exit_no_food(self):
-#         print("Leaving no_food")
-
-
-
-
-
-
 from transitions.extensions import GraphMachine
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction, PostbackTemplateAction
 from utils import send_button_message,send_text_message,send_fsm
-#!/usr/bin/env python
-#coding=utf-8
-
 
 class TocMachine(GraphMachine):
     Ibreakfast = {'calorie':0,'starch':0,'protein':0,'money':0,'meal':'none'}
@@ -207,7 +36,6 @@ class TocMachine(GraphMachine):
         TocMachine.Idinner['protein'] = 0
         TocMachine.Idinner['money'] = 0
         TocMachine.Idinner['meal'] = 'none'
-        
         
         btn_action=[
             MessageTemplateAction(
@@ -255,9 +83,6 @@ class TocMachine(GraphMachine):
         ]
         reply_token = event.reply_token
         send_button_message(reply_token,btn_action,"選擇餐點","返回功能選單請按1")
-
-
-
     
     #input the information
     def is_going_to_information(self, event):
@@ -319,10 +144,6 @@ class TocMachine(GraphMachine):
         print(TocMachine.Totalstarch,"Totalstarch")
         self.go_regtostart(event)
 
-
-
-
-
     #check
     def on_enter_examine(self, event, strback):
         print("in examine")
@@ -341,7 +162,6 @@ class TocMachine(GraphMachine):
         else:
             self.go_money_deny(event,strback)
 
-    
     def on_enter_calorie_check(self, event,strback):
         print("in calorie check")
         sum = TocMachine.Idinner['calorie'] + TocMachine.Ibreakfast['calorie'] + TocMachine.Ilunch['calorie'] 
@@ -355,7 +175,6 @@ class TocMachine(GraphMachine):
         else:
             self.go_calorie_deny(event,strback)
         
-
     def on_enter_starch_check(self, event,strback):
         print("in starch check")
         sum = TocMachine.Idinner['starch'] +TocMachine.Ibreakfast['starch'] + TocMachine.Ilunch['starch'] 
@@ -367,10 +186,6 @@ class TocMachine(GraphMachine):
             self.go_regfood(event)
         else:
             self.go_starch_deny(event,strback)
-
-
-
-        
     
     #deny
     def on_enter_money_deny(self, event, strback):
@@ -400,8 +215,7 @@ class TocMachine(GraphMachine):
             self.go_lunch(event, "澱粉過多")
         else:
             self.go_dinner(event, "澱粉過多")
-    
-        
+ 
     #showeat
     def is_going_to_showeat(self, event,indic=""):
         text = event.message.text
@@ -448,8 +262,6 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_fsm(reply_token)
 
-
-
     #regfood back to start
     def is_going_to_regtostart(self, event,indic=""):
         text = event.message.text
@@ -460,8 +272,6 @@ class TocMachine(GraphMachine):
     def on_enter_regtostart(self, event ,indic=""):  
         print(" go to start")
         self.go_regtostart(event)
-
-
     
     #breakfast
     def is_going_to_breakfast(self, event,indic=""):
