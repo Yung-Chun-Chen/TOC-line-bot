@@ -20,7 +20,7 @@ def send_fsm(reply_token):
     line_bot_api.reply_message(reply_token, fsm)
     return "OK"
 
-def send_button_message(reply_token,btn_action,indicate,textdic='選擇接近的餐點',imageurl='https://https://blog.xuite.net/yield.life/hkblog/587384595'):
+def send_button_message(reply_token,btn_action,indicate,textdic='選擇接近的餐點',imageurl='//https://2.share.photo.xuite.net/yield.life/120e53e/19407657/1209035797_l.jpg'):  
     line_bot_api = LineBotApi(channel_access_token)
     if textdic == "":
         textdic = "選擇接近的餐點"
