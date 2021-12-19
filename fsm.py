@@ -198,11 +198,11 @@ class TocMachine(GraphMachine):
         # else:
         #     self.go_dinner(event,'餘額不足')
         if strback == "breakfast":
-            self.go_start(event)
+            self.go_regtostart(event)
         elif strback == "lunch":
-            self.go_start(event)
+            self.go_regtostart(event)
         else:
-            self.go_start(event)
+            self.go_regtostart(event)
         
     def on_enter_calorie_deny(self, event,strback):
         print("in calorie deny")
@@ -213,11 +213,11 @@ class TocMachine(GraphMachine):
         # else:
         #     self.go_dinner(event,"熱量過多")
         if strback == "breakfast":
-            self.go_start(event)
+            self.go_regtostart(event)
         elif strback == "lunch":
-            self.go_start(event)
+            self.go_regtostart(event)
         else:
-            self.go_start(event)
+            self.go_regtostart(event)
         
     def on_enter_starch_deny(self, event,strback):
         print("in starch deny")
@@ -228,11 +228,11 @@ class TocMachine(GraphMachine):
         # else:
         #     self.go_dinner(event, "澱粉過多")
         if strback == "breakfast":
-            self.go_start(event)
+            self.go_regtostart(event)
         elif strback == "lunch":
-            self.go_start(event)
+            self.go_regtostart(event)
         else:
-            self.go_start(event)
+            self.go_regtostart(event)
  
     #showeat
     def is_going_to_showeat(self, event,indic=""):
