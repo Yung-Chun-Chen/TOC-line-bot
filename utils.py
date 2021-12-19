@@ -990,20 +990,20 @@ def do_game(event, text):
     push_text_message(event, '目前連贏 '+str(win_game[event.source.user_id]) +' 次')
     return True
 
-def upload_photo(image_url):
-    client_id = '08dd33b004aeb70'
-    client_secret = 'df0e8f73218d6046b49cf3d481f898ff658868fa'
-    access_token = '714846b6f07dddaea1b9144a0b5fdc1e49c2cc93'
-    refresh_token = '714846b6f07dddaea1b9144a0b5fdc1e49c2cc93'
-    client = ImgurClient(client_id, client_secret, access_token, refresh_token)
-    album = None # You can also enter an album ID here
-    config = {
-        'album': album,
-    }
-    print("Uploading image... ")
-    image = client.upload_from_url(image_url, config=config, anon=False)
-    print("Done")
-    return image['link']
+# def upload_photo(image_url):
+#     client_id = '08dd33b004aeb70'
+#     client_secret = 'df0e8f73218d6046b49cf3d481f898ff658868fa'
+#     access_token = '714846b6f07dddaea1b9144a0b5fdc1e49c2cc93'
+#     refresh_token = '714846b6f07dddaea1b9144a0b5fdc1e49c2cc93'
+#     client = ImgurClient(client_id, client_secret, access_token, refresh_token)
+#     album = None # You can also enter an album ID here
+#     config = {
+#         'album': album,
+#     }
+#     print("Uploading image... ")
+#     image = client.upload_from_url(image_url, config=config, anon=False)
+#     print("Done")
+#     return image['link']
 
 
 """
