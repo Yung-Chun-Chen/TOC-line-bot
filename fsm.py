@@ -786,11 +786,10 @@ class TocMachine(GraphMachine):
     def on_enter_showfsm(self, event ,indic=""):
 
         reply_token = event.reply_token
-        msg0="澱粉太多\n輸入1返回功能表單"
-        send_text_message(reply_token,msg0)
-
-        #reply_token = event.reply_token
         send_fsm(reply_token)
+
+        msg0="輸入1返回功能表單"
+        send_text_message(reply_token,msg0)
 
     #regfood back to start
     def is_going_to_regtostart(self, event,indic=""):
