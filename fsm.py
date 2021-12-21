@@ -784,7 +784,12 @@ class TocMachine(GraphMachine):
         text = event.message.text
         return text.lower() == "showfsm"
     def on_enter_showfsm(self, event ,indic=""):
+
         reply_token = event.reply_token
+        msg0="澱粉太多\n輸入1返回功能表單"
+        send_text_message(reply_token,msg0)
+
+        #reply_token = event.reply_token
         send_fsm(reply_token)
 
     #regfood back to start
@@ -894,7 +899,7 @@ class TocMachine(GraphMachine):
         input = text.split()
         print(input)
         if input[0] == '1':
-            TocMachine.Ilunch['calorie'] = 500
+            TocMachine.Ilunch['calorie'] = 500000000##########################################
             TocMachine.Ilunch['starch']  = 55
             TocMachine.Ilunch['protein'] = 35
             TocMachine.Ilunch['money']   = int(input[1])
