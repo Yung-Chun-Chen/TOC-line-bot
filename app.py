@@ -51,10 +51,15 @@ machine = TocMachine(
         {"trigger":"go_money_deny","source":"money_check","dest":"money_deny"},
         {"trigger":"go_calorie_deny","source":"calorie_check","dest":"calorie_deny"},
         {"trigger":"go_starch_deny","source":"starch_check","dest":"starch_deny"},
+
         #from deny to original meal(for rechoose the meal) 
-        {"trigger":"go_breakfast","source":['money_deny','calorie_deny','starch_deny'],"dest":"breakfast"},
-        {"trigger":"go_lunch","source":['money_deny','calorie_deny','starch_deny'],"dest":"lunch"},
-        {"trigger":"go_dinner","source":['money_deny','calorie_deny','starch_deny'],"dest":"dinner"},
+        # {"trigger":"go_breakfast","source":['money_deny','calorie_deny','starch_deny'],"dest":"breakfast"},
+        # {"trigger":"go_lunch","source":['money_deny','calorie_deny','starch_deny'],"dest":"lunch"},
+        # {"trigger":"go_dinner","source":['money_deny','calorie_deny','starch_deny'],"dest":"dinner"},
+
+        {"trigger":"go_start","source":['money_deny','calorie_deny','starch_deny'],"dest":"start"},
+        {"trigger":"go_start","source":['money_deny','calorie_deny','starch_deny'],"dest":"start"},
+        {"trigger":"go_start","source":['money_deny','calorie_deny','starch_deny'],"dest":"start"},
 
         #back to start
         {"trigger": "advance","source": ["showsuggest","regfood","showfsm"],"dest": "regtostart","conditions": "is_going_to_regtostart",},
