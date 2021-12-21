@@ -136,7 +136,7 @@ class TocMachine(GraphMachine):
         # bmr = (13.7 x 體重) + (5.0 x 身高) – (6.8 x 年齡) + 66
         bmr = (13.7*TocMachine.weight) + (5*TocMachine.height) - (6.8*TocMachine.age) + 66
         tdee = bmr * 1.375 - 300
-        TocMachine.Totalstarch = tdee * 0.3/4 #starch=tdee*0.3/4
+        TocMachine.Totalstarch = tdee * 0.3/4 + 300 #starch=tdee*0.3/4
         TocMachine.Totalcalorie = tdee
         print(TocMachine.Totalmoney,"totalmoney")
         print(tdee,'tdee')
@@ -160,6 +160,7 @@ class TocMachine(GraphMachine):
         if sum <= TocMachine.Totalmoney:
             self.go_calorie(event,strback)
         else:
+            
             self.go_money_deny(event,strback)
 
     def on_enter_calorie_check(self, event,strback):
@@ -192,28 +193,37 @@ class TocMachine(GraphMachine):
         print("in money deny")
         
         if strback == "breakfast":
+            TocMachine.Totalmoney -= TocMachine.Ibreakfast['money']
             self.go_breakfast(event,'餘額不足')
         elif strback == "lunch":
+            TocMachine.Totalmoney -= TocMachine.Ilunch['money']
             self.go_lunch(event,'餘額不足')
         else:
+            TocMachine.Totalmoney -= TocMachine.Idinner['money']
             self.go_dinner(event,'餘額不足')
         
     def on_enter_calorie_deny(self, event,strback):
         print("in calorie deny")
         if strback == "breakfast":
+            TocMachine.Totalcalorie -= TocMachine.Ibreakfast['calorie']
             self.go_breakfast(event,"熱量過多")
         elif strback == "lunch":
+            TocMachine.Totalcalorie -= TocMachine.Ilunch['calorie']
             self.go_lunch(event,"熱量過多")
         else:
+            TocMachine.Totalcalorie -= TocMachine.Idinner['calorie']
             self.go_dinner(event,"熱量過多")
         
     def on_enter_starch_deny(self, event,strback):
         print("in starch deny")
         if strback == "breakfast":
+            TocMachine.Totalstarch -= TocMachine.Ibreakfast['starch']
             self.go_breakfast(event, "澱粉過多")
         elif strback == "lunch":
+            TocMachine.Totalstarch -= TocMachine.Ilunch['starch']
             self.go_lunch(event, "澱粉過多")
         else:
+            TocMachine.Totalstarch -= TocMachine.Idinner['starch']
             self.go_dinner(event, "澱粉過多")
 
     
