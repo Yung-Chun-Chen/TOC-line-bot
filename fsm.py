@@ -713,7 +713,7 @@ class TocMachine(GraphMachine):
         
     def on_enter_calorie_deny(self, event,strback,sum):
         reply_token = event.reply_token
-        msg0="熱量太高"
+        msg0="熱量太高\n輸入1返回功能表單"
         send_text_message(reply_token,msg0)
         print("in calorie deny")
         if strback == "breakfast":
@@ -728,7 +728,7 @@ class TocMachine(GraphMachine):
         
     def on_enter_starch_deny(self, event,strback,sum):
         reply_token = event.reply_token
-        msg0="澱粉太多"
+        msg0="澱粉太多\n輸入1返回功能表單"
         send_text_message(reply_token,msg0)
         print("in starch deny")
         if strback == "breakfast":

@@ -223,10 +223,14 @@ machine = TocMachine(
         {"trigger":"go_starch_deny","source":"starch_check","dest":"starch_deny"},
 
         #from deny to original meal(for rechoose the meal) 
-        {"trigger":"go_regfood","source":['money_deny','calorie_deny','starch_deny'],"dest":"regfood"},
-        {"trigger":"go_regfood","source":['money_deny','calorie_deny','starch_deny'],"dest":"regfood"},
-        {"trigger":"go_regfood","source":['money_deny','calorie_deny','starch_deny'],"dest":"regfood"},
+        {"trigger":"go_regfood","source":['calorie_deny','starch_deny'],"dest":"regfood"},
+        {"trigger":"go_regfood","source":['calorie_deny','starch_deny'],"dest":"regfood"},
+        {"trigger":"go_regfood","source":['calorie_deny','starch_deny'],"dest":"regfood"},
 
+        #from deny to original meal(for rechoose the meal) 
+        {"trigger":"go_breakfast","source":['money_deny'],"dest":"breakfast"},
+        {"trigger":"go_lunch","source":['money_deny'],"dest":"lunch"},
+        {"trigger":"go_dinner","source":['money_deny'],"dest":"dinner"},
         
 
         #back to start
