@@ -699,17 +699,20 @@ class TocMachine(GraphMachine):
     
     #deny
     def on_enter_money_deny(self, event, strback,sum):
+        reply_token = event.reply_token
+        msg0="餘額不足\n輸入1返回功能表單"
+        send_text_message(reply_token,msg0)
         print("in money deny")
         
         if strback == "breakfast":
             sum -= TocMachine.Ibreakfast['money']
-            self.go_breakfast(event,'餘額不足')
+            self.go_regfood(event)
         elif strback == "lunch":
             sum -= TocMachine.Ilunch['money']
-            self.go_lunch(event,'餘額不足')
+            self.go_regfood(event)
         else:
             sum -= TocMachine.Idinner['money']
-            self.go_dinner(event,'餘額不足')
+            self.go_regfood(event)
         
     def on_enter_calorie_deny(self, event,strback,sum):
         reply_token = event.reply_token
@@ -783,14 +786,10 @@ class TocMachine(GraphMachine):
     def is_going_to_showfsm(self, event,indic=""):
         text = event.message.text
         return text.lower() == "showfsm"
-    def on_enter_showfsm(self, event ,indic=""):
 
+    def on_enter_showfsm(self, event ,indic=""):
         reply_token = event.reply_token
         send_fsm(reply_token)
-        
-        reply_token = event.reply_token
-        msg0="輸入1返回功能表單"
-        send_text_message(reply_token,msg0)
 
     #regfood back to start
     def is_going_to_regtostart(self, event,indic=""):
