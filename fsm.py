@@ -787,7 +787,8 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         send_fsm(reply_token)
-
+        
+        reply_token = event.reply_token
         msg0="輸入1返回功能表單"
         send_text_message(reply_token,msg0)
 
