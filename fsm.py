@@ -3,15 +3,15 @@
 # from utils import send_button_message,send_text_message,send_fsm
 
 # class TocMachine(GraphMachine):
-#     Ibreakfast = {'calorie':0,'starch':0,'protein':0,'money':0,'meal':'none'}
-#     Ilunch     = {'calorie':0,'starch':0,'protein':0,'money':0,'meal':'none'}   
-#     Idinner    = {'calorie':0,'starch':0,'protein':0,'money':0,'meal':'none'}
-#     height = 175
-#     weight = 84
+#     breakfast = {'calorie':0,'starch':0,'protein':0,'money':0,'meal':'none'} #starch:澱粉
+#     lunch     = {'calorie':0,'starch':0,'protein':0,'money':0,'meal':'none'}   
+#     dinner    = {'calorie':0,'starch':0,'protein':0,'money':0,'meal':'none'}
+#     height = 160
+#     weight = 60
 #     Totalmoney = 0
 #     Totalcalorie = 0
 #     Totalstarch = 0
-#     Totalprotein = 100
+#     Totalprotein = 0
 #     def __init__(self, **machine_configs):
 #         self.machine = GraphMachine(model=self, **machine_configs)
 #     #start
@@ -19,23 +19,23 @@
 #         text = event.message.text
 #         return text.lower() == "start"
 #     def on_enter_start(self, event):
-#         TocMachine.Ibreakfast['calorie'] = 0
-#         TocMachine.Ibreakfast['starch'] = 0
-#         TocMachine.Ibreakfast['protein'] = 0
-#         TocMachine.Ibreakfast['money'] = 0
-#         TocMachine.Ibreakfast['meal'] = 'none'
+#         TocMachine.breakfast['calorie'] = 0
+#         TocMachine.breakfast['starch'] = 0
+#         TocMachine.breakfast['protein'] = 0
+#         TocMachine.breakfast['money'] = 0
+#         TocMachine.breakfast['meal'] = 'none'
         
-#         TocMachine.Ilunch['calorie'] = 0
-#         TocMachine.Ilunch['starch'] = 0
-#         TocMachine.Ilunch['protein'] = 0
-#         TocMachine.Ilunch['money'] = 0
-#         TocMachine.Ilunch['meal'] = 'none'
+#         TocMachine.lunch['calorie'] = 0
+#         TocMachine.lunch['starch'] = 0
+#         TocMachine.lunch['protein'] = 0
+#         TocMachine.lunch['money'] = 0
+#         TocMachine.lunch['meal'] = 'none'
         
-#         TocMachine.Idinner['calorie'] = 0
-#         TocMachine.Idinner['starch'] = 0
-#         TocMachine.Idinner['protein'] = 0
-#         TocMachine.Idinner['money'] = 0
-#         TocMachine.Idinner['meal'] = 'none'
+#         TocMachine.dinner['calorie'] = 0
+#         TocMachine.dinner['starch'] = 0
+#         TocMachine.dinner['protein'] = 0
+#         TocMachine.dinner['money'] = 0
+#         TocMachine.dinner['meal'] = 'none'
         
 #         btn_action=[
 #             MessageTemplateAction(
@@ -152,10 +152,10 @@
     
 #     def on_enter_money_check(self, event, strback):
 #         print("in money check")
-#         sum = TocMachine.Idinner['money'] +TocMachine.Ibreakfast['money'] + TocMachine.Ilunch['money'] 
-#         print(TocMachine.Ibreakfast['money'],"breakfast")
-#         print(TocMachine.Ilunch['money'],"lunch")
-#         print(TocMachine.Idinner['money'],"dinner")
+#         sum = TocMachine.dinner['money'] +TocMachine.breakfast['money'] + TocMachine.lunch['money'] 
+#         print(TocMachine.breakfast['money'],"breakfast")
+#         print(TocMachine.lunch['money'],"lunch")
+#         print(TocMachine.dinner['money'],"dinner")
 #         print(sum,"sum = ")
 #         if sum <= TocMachine.Totalmoney:
 #             self.go_calorie(event,strback)
@@ -164,10 +164,10 @@
 
 #     def on_enter_calorie_check(self, event,strback):
 #         print("in calorie check")
-#         sum = TocMachine.Idinner['calorie'] + TocMachine.Ibreakfast['calorie'] + TocMachine.Ilunch['calorie'] 
-#         print(TocMachine.Ibreakfast['calorie'],"breakfast")
-#         print(TocMachine.Ilunch['calorie'],"lunch")
-#         print(TocMachine.Idinner['calorie'],"dinner")
+#         sum = TocMachine.dinner['calorie'] + TocMachine.breakfast['calorie'] + TocMachine.lunch['calorie'] 
+#         print(TocMachine.breakfast['calorie'],"breakfast")
+#         print(TocMachine.lunch['calorie'],"lunch")
+#         print(TocMachine.dinner['calorie'],"dinner")
 #         print(sum,"sum = ")
 
 #         if sum < TocMachine.Totalcalorie:
@@ -177,10 +177,10 @@
         
 #     def on_enter_starch_check(self, event,strback):
 #         print("in starch check")
-#         sum = TocMachine.Idinner['starch'] +TocMachine.Ibreakfast['starch'] + TocMachine.Ilunch['starch'] 
-#         print(TocMachine.Ibreakfast['starch'],"breakfast")
-#         print(TocMachine.Ilunch['starch'],"lunch")
-#         print(TocMachine.Idinner['starch'],"dinner")
+#         sum = TocMachine.dinner['starch'] +TocMachine.breakfast['starch'] + TocMachine.lunch['starch'] 
+#         print(TocMachine.breakfast['starch'],"breakfast")
+#         print(TocMachine.lunch['starch'],"lunch")
+#         print(TocMachine.dinner['starch'],"dinner")
 #         print(sum,"sum = ")
 #         if sum < TocMachine.Totalstarch:
 #             self.go_regfood(event)
@@ -195,13 +195,13 @@
 #         print("in money deny")
         
 #         if strback == "breakfast":
-#             sum -= TocMachine.Ibreakfast['money']
+#             sum -= TocMachine.breakfast['money']
 #             self.go_regfood(event)
 #         elif strback == "lunch":
-#             sum -= TocMachine.Ilunch['money']
+#             sum -= TocMachine.lunch['money']
 #             self.go_regfood(event)
 #         else:
-#             sum -= TocMachine.Idinner['money']
+#             sum -= TocMachine.dinner['money']
 #             self.go_regfood(event)
         
 #     def on_enter_calorie_deny(self, event,strback,sum):
@@ -210,13 +210,13 @@
 #         send_text_message(reply_token,msg0)
 #         print("in calorie deny")
 #         if strback == "breakfast":
-#             sum -= TocMachine.Ibreakfast['calorie']
+#             sum -= TocMachine.breakfast['calorie']
 #             self.go_regfood(event)
 #         elif strback == "lunch":
-#             sum -= TocMachine.Ilunch['calorie']
+#             sum -= TocMachine.lunch['calorie']
 #             self.go_regfood(event)
 #         else:
-#             sum -= TocMachine.Idinner['calorie']
+#             sum -= TocMachine.dinner['calorie']
 #             self.go_regfood(event)
         
 #     def on_enter_starch_deny(self, event,strback,sum):
@@ -225,13 +225,13 @@
 #         send_text_message(reply_token,msg0)
 #         print("in starch deny")
 #         if strback == "breakfast":
-#             sum -= TocMachine.Ibreakfast['starch']
+#             sum -= TocMachine.breakfast['starch']
 #             self.go_regfood(event)
 #         elif strback == "lunch":
-#             sum -= TocMachine.Ilunch['starch']
+#             sum -= TocMachine.lunch['starch']
 #             self.go_regfood(event)
 #         else:
-#             sum -= TocMachine.Idinner['starch']
+#             sum -= TocMachine.dinner['starch']
 #             self.go_regfood(event)
  
 #     #showeat
@@ -239,11 +239,11 @@
 #         text = event.message.text
 #         return text.lower() == "showeat"
 #     def on_enter_showeat(self, event ,indic=""):  
-#         msg0 = '餐點:\n       早餐%10s\n       午餐%10s\n       晚餐%10s\n' % (TocMachine.Ibreakfast['meal'],TocMachine.Ilunch['meal'],TocMachine.Idinner['meal'])
-#         msg1 = '卡路里:\n       早餐%20d卡\n       午餐%20d卡\n       晚餐%20d卡\n' % (TocMachine.Ibreakfast['calorie'],TocMachine.Ilunch['calorie'],TocMachine.Idinner['calorie'])
-#         msg2 = '澱粉:\n       早餐%20d克\n       午餐%20d克\n       晚餐%20d克\n' % (TocMachine.Ibreakfast['starch'],TocMachine.Ilunch['starch'],TocMachine.Idinner['starch'])
-#         msg3 = '蛋白質:\n       早餐%20d克\n       午餐%20d克\n       晚餐%20d克\n' % (TocMachine.Ibreakfast['protein'],TocMachine.Ilunch['protein'],TocMachine.Idinner['protein'])
-#         msg4 = '金額:\n       早餐%20d元\n       午餐%20d元\n       晚餐%20d元\n' % (TocMachine.Ibreakfast['money'],TocMachine.Ilunch['money'],TocMachine.Idinner['money'])
+#         msg0 = '餐點:\n       早餐%10s\n       午餐%10s\n       晚餐%10s\n' % (TocMachine.breakfast['meal'],TocMachine.lunch['meal'],TocMachine.dinner['meal'])
+#         msg1 = '卡路里:\n       早餐%20d卡\n       午餐%20d卡\n       晚餐%20d卡\n' % (TocMachine.breakfast['calorie'],TocMachine.lunch['calorie'],TocMachine.dinner['calorie'])
+#         msg2 = '澱粉:\n       早餐%20d克\n       午餐%20d克\n       晚餐%20d克\n' % (TocMachine.breakfast['starch'],TocMachine.lunch['starch'],TocMachine.dinner['starch'])
+#         msg3 = '蛋白質:\n       早餐%20d克\n       午餐%20d克\n       晚餐%20d克\n' % (TocMachine.breakfast['protein'],TocMachine.lunch['protein'],TocMachine.dinner['protein'])
+#         msg4 = '金額:\n       早餐%20d元\n       午餐%20d元\n       晚餐%20d元\n' % (TocMachine.breakfast['money'],TocMachine.lunch['money'],TocMachine.dinner['money'])
 #         msg5 = '返回請輸入1'
 #         reply_token = event.reply_token
 #         send_text_message(reply_token,msg0+msg1+msg2+msg3+msg4+msg5)
@@ -322,34 +322,34 @@
 #         input = text.split()
 #         print(input)
 #         if input[0] == '1':
-#             TocMachine.Ibreakfast['calorie'] = 270
-#             TocMachine.Ibreakfast['starch']  = 20
-#             TocMachine.Ibreakfast['protein'] = 13
-#             TocMachine.Ibreakfast['money']   = int(input[1])
-#             TocMachine.Ibreakfast['meal'] = '火腿蛋土司'
-#             print(TocMachine.Ibreakfast['money'],"breakfast")
-#             print(TocMachine.Ilunch['money'],"lunch")
-#             print(TocMachine.Idinner['money'],"dinner")
+#             TocMachine.breakfast['calorie'] = 270
+#             TocMachine.breakfast['starch']  = 20
+#             TocMachine.breakfast['protein'] = 13
+#             TocMachine.breakfast['money']   = int(input[1])
+#             TocMachine.breakfast['meal'] = '火腿蛋土司'
+#             print(TocMachine.breakfast['money'],"breakfast")
+#             print(TocMachine.lunch['money'],"lunch")
+#             print(TocMachine.dinner['money'],"dinner")
 #             print("in hamegg")
 #         elif input[0] == '2':
-#             TocMachine.Ibreakfast['calorie'] = 230
-#             TocMachine.Ibreakfast['starch']  = 25
-#             TocMachine.Ibreakfast['protein'] = 6
-#             TocMachine.Ibreakfast['money']   = int(input[1])
-#             TocMachine.Ibreakfast['meal'] = '蛋餅'
-#             print(TocMachine.Ibreakfast['money'],"breakfast")
-#             print(TocMachine.Ilunch['money'],"lunch")
-#             print(TocMachine.Idinner['money'],"dinner")
+#             TocMachine.breakfast['calorie'] = 230
+#             TocMachine.breakfast['starch']  = 25
+#             TocMachine.breakfast['protein'] = 6
+#             TocMachine.breakfast['money']   = int(input[1])
+#             TocMachine.breakfast['meal'] = '蛋餅'
+#             print(TocMachine.breakfast['money'],"breakfast")
+#             print(TocMachine.lunch['money'],"lunch")
+#             print(TocMachine.dinner['money'],"dinner")
 #             print("in chiomelet")
 #         elif input[0] == '3':
-#             TocMachine.Ibreakfast['calorie'] = 220
-#             TocMachine.Ibreakfast['starch']  = 40
-#             TocMachine.Ibreakfast['protein'] = 5
-#             TocMachine.Ibreakfast['money']   = int(input[1])
-#             TocMachine.Ibreakfast['meal'] = '飯糰'
-#             print(TocMachine.Ibreakfast['money'],"breakfast")
-#             print(TocMachine.Ilunch['money'],"lunch")
-#             print(TocMachine.Idinner['money'],"dinner")
+#             TocMachine.breakfast['calorie'] = 220
+#             TocMachine.breakfast['starch']  = 40
+#             TocMachine.breakfast['protein'] = 5
+#             TocMachine.breakfast['money']   = int(input[1])
+#             TocMachine.breakfast['meal'] = '飯糰'
+#             print(TocMachine.breakfast['money'],"breakfast")
+#             print(TocMachine.lunch['money'],"lunch")
+#             print(TocMachine.dinner['money'],"dinner")
 #             print("in riceroll")
             
 #         self.go_money(event,"breakfast")
@@ -388,48 +388,48 @@
 #         input = text.split()
 #         print(input)
 #         if input[0] == '1':
-#             TocMachine.Ilunch['calorie'] = 500
-#             TocMachine.Ilunch['starch']  = 55
-#             TocMachine.Ilunch['protein'] = 35
-#             TocMachine.Ilunch['money']   = int(input[1])
-#             TocMachine.Ilunch['meal'] = 'subway'
-#             print(TocMachine.Ibreakfast['money'],"breakfast")
-#             print(TocMachine.Ilunch['money'],"lunch")
-#             print(TocMachine.Idinner['money'],"dinner")
+#             TocMachine.lunch['calorie'] = 500
+#             TocMachine.lunch['starch']  = 55
+#             TocMachine.lunch['protein'] = 35
+#             TocMachine.lunch['money']   = int(input[1])
+#             TocMachine.lunch['meal'] = 'subway'
+#             print(TocMachine.breakfast['money'],"breakfast")
+#             print(TocMachine.lunch['money'],"lunch")
+#             print(TocMachine.dinner['money'],"dinner")
 #             print("in subway")
 #         elif input[0] == '2':
-#             TocMachine.Ilunch['calorie'] = 600
-#             TocMachine.Ilunch['starch']  = 80
-#             TocMachine.Ilunch['protein'] = 10
-#             TocMachine.Ilunch['money'] = int(input[1])
-#             TocMachine.Ilunch['meal'] = '炒飯'
+#             TocMachine.lunch['calorie'] = 600
+#             TocMachine.lunch['starch']  = 80
+#             TocMachine.lunch['protein'] = 10
+#             TocMachine.lunch['money'] = int(input[1])
+#             TocMachine.lunch['meal'] = '炒飯'
             
-#             print(TocMachine.Ibreakfast['money'],"breakfast")
-#             print(TocMachine.Ilunch['money'],"lunch")
-#             print(TocMachine.Idinner['money'],"dinner")
+#             print(TocMachine.breakfast['money'],"breakfast")
+#             print(TocMachine.lunch['money'],"lunch")
+#             print(TocMachine.dinner['money'],"dinner")
 #             print("in friedrice")
 
 #         elif input[0] == '3':
-#             TocMachine.Ilunch['calorie'] = 600
-#             TocMachine.Ilunch['starch']  = 60
-#             TocMachine.Ilunch['protein'] = 10
-#             TocMachine.Ilunch['money']   = int(input[1])
-#             TocMachine.Ilunch['meal'] = '乾麵'
+#             TocMachine.lunch['calorie'] = 600
+#             TocMachine.lunch['starch']  = 60
+#             TocMachine.lunch['protein'] = 10
+#             TocMachine.lunch['money']   = int(input[1])
+#             TocMachine.lunch['meal'] = '乾麵'
             
-#             print(TocMachine.Ibreakfast['money'],"breakfast")
-#             print(TocMachine.Ilunch['money'],"lunch")
-#             print(TocMachine.Idinner['money'],"dinner")
+#             print(TocMachine.breakfast['money'],"breakfast")
+#             print(TocMachine.lunch['money'],"lunch")
+#             print(TocMachine.dinner['money'],"dinner")
 #             print("in noodles")
 #         elif input[0] == '4':
-#             TocMachine.Ilunch['calorie'] = 800
-#             TocMachine.Ilunch['starch']  = 80
-#             TocMachine.Ilunch['protein'] = 40
-#             TocMachine.Ilunch['money']   = int(input[1])
-#             TocMachine.Ilunch['meal'] = '便當'
+#             TocMachine.lunch['calorie'] = 800
+#             TocMachine.lunch['starch']  = 80
+#             TocMachine.lunch['protein'] = 40
+#             TocMachine.lunch['money']   = int(input[1])
+#             TocMachine.lunch['meal'] = '便當'
             
-#             print(TocMachine.Ibreakfast['money'],"breakfast")
-#             print(TocMachine.Ilunch['money'],"lunch")
-#             print(TocMachine.Idinner['money'],"dinner")
+#             print(TocMachine.breakfast['money'],"breakfast")
+#             print(TocMachine.lunch['money'],"lunch")
+#             print(TocMachine.dinner['money'],"dinner")
 #             print("in boxedlunch")
 #         self.go_money(event,"lunch")
     
@@ -468,49 +468,49 @@
 #         print(input)
 #         # print(text,"check the nextdinner")
 #         if input[0] == '1':
-#             TocMachine.Idinner['calorie'] = 800
-#             TocMachine.Idinner['starch']  = 80
-#             TocMachine.Idinner['protein'] = 50
-#             TocMachine.Idinner['money']   = int(input[1])
-#             TocMachine.Idinner['meal'] = '海南雞飯'
+#             TocMachine.dinner['calorie'] = 800
+#             TocMachine.dinner['starch']  = 80
+#             TocMachine.dinner['protein'] = 50
+#             TocMachine.dinner['money']   = int(input[1])
+#             TocMachine.dinner['meal'] = '海南雞飯'
 
-#             print(TocMachine.Ibreakfast['money'],"breakfast")
-#             print(TocMachine.Ilunch['money'],"lunch")
-#             print(TocMachine.Idinner['money'],"dinner")
+#             print(TocMachine.breakfast['money'],"breakfast")
+#             print(TocMachine.lunch['money'],"lunch")
+#             print(TocMachine.dinner['money'],"dinner")
 #             print("in chickenrice")
 #         elif input[0] == '2':
-#             TocMachine.Idinner['calorie'] = 800
-#             TocMachine.Idinner['starch']  = 90
-#             TocMachine.Idinner['protein'] = 30
-#             TocMachine.Idinner['money']   = int(input[1])
-#             TocMachine.Idinner['meal'] = '關東煮'
+#             TocMachine.dinner['calorie'] = 800
+#             TocMachine.dinner['starch']  = 90
+#             TocMachine.dinner['protein'] = 30
+#             TocMachine.dinner['money']   = int(input[1])
+#             TocMachine.dinner['meal'] = '關東煮'
 
-#             print(TocMachine.Ibreakfast['money'],"breakfast")
-#             print(TocMachine.Ilunch['money'],"lunch")
-#             print(TocMachine.Idinner['money'],"dinner")
+#             print(TocMachine.breakfast['money'],"breakfast")
+#             print(TocMachine.lunch['money'],"lunch")
+#             print(TocMachine.dinner['money'],"dinner")
 #             print("in oden")
 
 #         elif input[0] == '3':
-#             TocMachine.Idinner['calorie'] = 450
-#             TocMachine.Idinner['starch']  = 50
-#             TocMachine.Idinner['protein'] = 15
-#             TocMachine.Idinner['money']   = int(input[1])
-#             TocMachine.Idinner['meal'] = '涼麵'
+#             TocMachine.dinner['calorie'] = 450
+#             TocMachine.dinner['starch']  = 50
+#             TocMachine.dinner['protein'] = 15
+#             TocMachine.dinner['money']   = int(input[1])
+#             TocMachine.dinner['meal'] = '涼麵'
 
-#             print(TocMachine.Ibreakfast['money'],"breakfast")
-#             print(TocMachine.Ilunch['money'],"lunch")
-#             print(TocMachine.Idinner['money'],"dinner")
+#             print(TocMachine.breakfast['money'],"breakfast")
+#             print(TocMachine.lunch['money'],"lunch")
+#             print(TocMachine.dinner['money'],"dinner")
 #             print("in coldnoodle")
 #         elif input[0] == '4':
-#             TocMachine.Idinner['calorie'] = 600
-#             TocMachine.Idinner['starch']  = 90
-#             TocMachine.Idinner['protein'] = 30
-#             TocMachine.Idinner['money']   = int(input[1])
-#             TocMachine.Idinner['meal'] = '打拋豬飯'
+#             TocMachine.dinner['calorie'] = 600
+#             TocMachine.dinner['starch']  = 90
+#             TocMachine.dinner['protein'] = 30
+#             TocMachine.dinner['money']   = int(input[1])
+#             TocMachine.dinner['meal'] = '打拋豬飯'
 
-#             print(TocMachine.Ibreakfast['money'],"breakfast")
-#             print(TocMachine.Ilunch['money'],"lunch")
-#             print(TocMachine.Idinner['money'],"dinner")
+#             print(TocMachine.breakfast['money'],"breakfast")
+#             print(TocMachine.lunch['money'],"lunch")
+#             print(TocMachine.dinner['money'],"dinner")
 #             print("in chilipork")
 #         self.go_money(event,"dinner")
         
@@ -531,7 +531,7 @@ class TocMachine(GraphMachine):
     Totalmoney = 0
     Totalcalorie = 0
     Totalstarch = 0
-    Totalprotein = 100
+    Totalprotein = 0
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
     #start
@@ -658,10 +658,12 @@ class TocMachine(GraphMachine):
         tdee = bmr * 1.375 - 300
         TocMachine.Totalstarch = tdee * 0.3/4 #starch=tdee*0.3/4
         TocMachine.Totalcalorie = tdee
+        TocMachine.Totalprotein = TocMachine.weight #(1 kg need 1g protein)
         print(TocMachine.Totalmoney,"totalmoney")
         print(tdee,'tdee')
         print(TocMachine.Totalcalorie,"Totalcalorie")
         print(TocMachine.Totalstarch,"Totalstarch")
+        print(TocMachine.Totalprotein,"Totalprotein")
         self.go_regtostart(event)
 
     #check
@@ -706,6 +708,18 @@ class TocMachine(GraphMachine):
             self.go_regfood(event)
         else:
             self.go_starch_deny(event,strback,sum)
+
+    def on_enter_protein_check(self, event,strback):
+        print("in protein check")
+        sum = TocMachine.dinner['protein'] +TocMachine.breakfast['protein'] + TocMachine.lunch['protein'] 
+        print(TocMachine.breakfast['protein'],"breakfast")
+        print(TocMachine.lunch['protein'],"lunch")
+        print(TocMachine.dinner['protein'],"dinner")
+        print(sum,"sum = ")
+        if sum < TocMachine.Totalprotein:
+            self.go_regfood(event)
+        else:
+            self.go_protein_deny(event,strback,sum)
     
     #deny
     def on_enter_money_deny(self, event, strback,sum):
@@ -753,6 +767,21 @@ class TocMachine(GraphMachine):
         else:
             sum -= TocMachine.dinner['starch']
             self.go_regfood(event)
+
+    def on_enter_protein_deny(self, event,strback,sum):
+        reply_token = event.reply_token
+        msg0="澱粉太多\n輸入1返回功能表單"
+        send_text_message(reply_token,msg0)
+        print("in protein deny")
+        if strback == "breakfast":
+            sum -= TocMachine.breakfast['protein']
+            self.go_regfood(event)
+        elif strback == "lunch":
+            sum -= TocMachine.lunch['protein']
+            self.go_regfood(event)
+        else:
+            sum -= TocMachine.dinner['protein']
+            self.go_regfood(event)
  
     #showeat
     def is_going_to_showeat(self, event,indic=""):
@@ -783,14 +812,16 @@ class TocMachine(GraphMachine):
         print(TocMachine.Totalmoney,"totalmoney")
         print(TocMachine.Totalcalorie,"Totalcalorie")
         print(TocMachine.Totalstarch,"Totalstarch")
+        print(TocMachine.Totalprotein,"Totalprotein")
         
         msg0 = '設定完身高體重即可換算\n\n'
         msg1 = '建議攝取熱量:%20d大卡\n' % (TocMachine.Totalcalorie)
         msg2 = '建議攝取澱粉:%20d公克\n' % (TocMachine.Totalstarch)
-        msg3 = '每日金額:         %20d元\n\n' % (TocMachine.Totalmoney)
-        msg4 = '返回請輸入1'
+        msg3 = '建議攝取蛋白質:%20d公克\n' % (TocMachine.Totalprotein)
+        msg4 = '每日金額:         %20d元\n\n' % (TocMachine.Totalmoney)
+        msg5 = '返回請輸入1'
         reply_token = event.reply_token
-        send_text_message(reply_token,msg0+msg1+msg2+msg3+msg4)
+        send_text_message(reply_token,msg0+msg1+msg2+msg3+msg4+msg5)
     
     #showfsm
     def is_going_to_showfsm(self, event,indic=""):
