@@ -1022,6 +1022,7 @@ class TocMachine(GraphMachine):
             TocMachine.dinner['calorie'] = 800
             TocMachine.dinner['starch']  = 80
             TocMachine.dinner['protein'] = 50
+            
             TocMachine.dinner['money']   = int(input[1])
             TocMachine.dinner['meal'] = '海南雞飯'
 
