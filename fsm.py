@@ -533,11 +533,12 @@ class TocMachine(GraphMachine):
     Totalstarch = 0
     Totalprotein = 0
     def __init__(self, **machine_configs):
+        print("start")
         self.machine = GraphMachine(model=self, **machine_configs)
     #start
     def is_going_to_start(self, event):
-        reply_token = event.reply_token
-        send_text_message(reply_token, "輸入start開始")
+        # reply_token = event.reply_token
+        # send_text_message(reply_token, "輸入start開始")
         text = event.message.text
         return text.lower() == "start"
     def on_enter_start(self, event):
@@ -565,7 +566,7 @@ class TocMachine(GraphMachine):
                 text='information'
             ),
             MessageTemplateAction(
-                label='選擇早/午/晚餐來檢驗一天的熱量',
+                label='選擇早/午/晚餐\n檢驗熱量',
                 text='regfood'
             ),
             MessageTemplateAction(
