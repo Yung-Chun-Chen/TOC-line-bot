@@ -817,7 +817,7 @@ class TocMachine(GraphMachine):
         msg0 = '設定完身高體重即可換算\n\n'
         msg1 = '建議攝取熱量:%20d大卡\n' % (TocMachine.Totalcalorie)
         msg2 = '建議攝取澱粉:%20d公克\n' % (TocMachine.Totalstarch)
-        msg3 = '建議攝取蛋白質:%20d公克\n' % (TocMachine.Totalprotein)
+        msg3 = '建議攝取蛋白質:%15d公克\n' % (TocMachine.Totalprotein)
         msg4 = '每日金額:         %20d元\n\n' % (TocMachine.Totalmoney)
         msg5 = '返回請輸入1'
         reply_token = event.reply_token
