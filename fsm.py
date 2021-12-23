@@ -770,7 +770,7 @@ class TocMachine(GraphMachine):
 
     def on_enter_protein_deny(self, event,strback,sum):
         reply_token = event.reply_token
-        msg0="澱粉太多\n輸入1返回功能表單"
+        msg0="蛋白質太多\n輸入1返回功能表單"
         send_text_message(reply_token,msg0)
         print("in protein deny")
         if strback == "breakfast":
@@ -1022,7 +1022,7 @@ class TocMachine(GraphMachine):
             TocMachine.dinner['calorie'] = 800
             TocMachine.dinner['starch']  = 80
             TocMachine.dinner['protein'] = 50
-            
+
             TocMachine.dinner['money']   = int(input[1])
             TocMachine.dinner['meal'] = '海南雞飯'
 
