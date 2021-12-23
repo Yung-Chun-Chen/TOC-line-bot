@@ -705,7 +705,7 @@ class TocMachine(GraphMachine):
         print(TocMachine.dinner['starch'],"dinner")
         print(sum,"sum = ")
         if sum < TocMachine.Totalstarch:
-            self.go_protein(event)
+            self.go_protein(event,strback)
         else:
             self.go_starch_deny(event,strback,sum)
 
