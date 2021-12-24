@@ -261,8 +261,13 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token,msg0)
         print("in protein deny")
 
-        reply_token1 = event.reply_token
-        send_image(reply_token1)
+        # reply_token1 = event.reply_token
+        # send_image(reply_token1)
+        title = 'View more?'
+        uptext = 'View more?'
+        labels = ['Yes', 'No']
+        texts = ["top", "cancel"]
+        send_confirm_message(title, uptext, labels, texts)
 
         if strback == "breakfast":
             sum -= TocMachine.breakfast['protein']

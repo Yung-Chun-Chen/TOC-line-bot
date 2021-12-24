@@ -1,7 +1,7 @@
 import os
 
 from linebot import LineBotApi, WebhookParser
-from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage,ConfirmTemplate
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction, PostbackTemplateAction
 
 channel_access_token = "lP+b/BM0OXIegi4iJkTIDSTkaLObmNnzcOa6Q6WKhVD/brx47xAdEIIKSjebM6kT7HugaVykdrQWgjQcAwYXVoZqZN3T0dRrSAhdc5cg0qW9v8W/5gJR4K3b98xRL1in0ebUo2XM/5ibtHCi+d/ETQdB04t89/1O/w1cDnyilFU="
@@ -47,6 +47,31 @@ def send_image(reply_token):
     line_bot_api.reply_message(reply_token, pic)
     return "OK"
 
+
+def send_confirm_message( title, uptext, labels, texts):
+    line_bot_api = LineBotApi(channel_access_token)
+
+    Confirm_template = TemplateSendMessage(
+        alt_text='confirm template',
+        template=ConfirmTemplate(
+            title=title,
+            text=uptext,
+            actions=[
+                MessageTemplateAction(
+                    label=labels[0],
+                    text=texts[0]
+                ),
+                MessageTemplateAction(
+                    label=labels[1],
+                    text=texts[1]
+                ),
+            ]
+        )
+    )
+
+    line_bot_api.push_message( Confirm_template)
+
+    return "Ok"
 """
 def send_image_url(id, img_url):
     pass
