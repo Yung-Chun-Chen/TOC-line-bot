@@ -345,14 +345,6 @@ class TocMachine(GraphMachine):
                 label='漢堡($35) 輸入4',
                 text='hamburger'
             ),
-            MessageTemplateAction(
-                label='鐵板麵($55) 輸入5',
-                text='pan fried noodles'
-            ),
-            # MessageTemplateAction(
-            #     label='蘿蔔糕($25) 輸入6',
-            #     text='radish cake'
-            # ),
         ]
         
         reply_token = event.reply_token
@@ -405,26 +397,6 @@ class TocMachine(GraphMachine):
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
             print("in hamburger")
-        elif input[0] == '5':
-            TocMachine.breakfast['calorie'] = 300
-            TocMachine.breakfast['starch']  = 65
-            TocMachine.breakfast['protein'] = 5
-            TocMachine.breakfast['money']   = 55
-            TocMachine.breakfast['meal'] = '鐵板麵'
-            print(TocMachine.breakfast['money'],"breakfast")
-            print(TocMachine.lunch['money'],"lunch")
-            print(TocMachine.dinner['money'],"dinner")
-            print("in pan fried noodles")
-        # elif input[0] == '6':
-        #     TocMachine.breakfast['calorie'] = 170
-        #     TocMachine.breakfast['starch']  = 45
-        #     TocMachine.breakfast['protein'] = 5
-        #     TocMachine.breakfast['money']   = 25
-        #     TocMachine.breakfast['meal'] = '蘿蔔糕'
-        #     print(TocMachine.breakfast['money'],"breakfast")
-        #     print(TocMachine.lunch['money'],"lunch")
-        #     print(TocMachine.dinner['money'],"dinner")
-        #     print("in radish cake")
 
         self.go_money(event,"breakfast")
 
@@ -435,19 +407,19 @@ class TocMachine(GraphMachine):
     def on_enter_lunch(self, event,indic=""):
         btn_action=[
             MessageTemplateAction(
-                label='subway 輸入(1空格$)',
+                label='subway($90) 輸入1',
                 text='subway'
             ),
             MessageTemplateAction(
-                label='炒飯 輸入(2空格$)',
+                label='炒飯($65) 輸入2',
                 text='friedrice'
             ),
             MessageTemplateAction(
-                label='乾麵 輸入(3空格$)',
+                label='乾麵($40) 輸入3',
                 text='noodles'
             ),
             MessageTemplateAction(
-                label='雞腿便當 輸入(4空格$)',
+                label='雞腿便當($65) 輸入4',
                 text='boxedlunch'
             )
         ]
@@ -465,7 +437,7 @@ class TocMachine(GraphMachine):
             TocMachine.lunch['calorie'] = 500
             TocMachine.lunch['starch']  = 55
             TocMachine.lunch['protein'] = 35
-            TocMachine.lunch['money']   = int(input[1])
+            TocMachine.lunch['money']   = 90
             TocMachine.lunch['meal'] = 'subway'
             print(TocMachine.breakfast['money'],"breakfast")
             print(TocMachine.lunch['money'],"lunch")
@@ -475,7 +447,7 @@ class TocMachine(GraphMachine):
             TocMachine.lunch['calorie'] = 600
             TocMachine.lunch['starch']  = 80
             TocMachine.lunch['protein'] = 10
-            TocMachine.lunch['money'] = int(input[1])
+            TocMachine.lunch['money'] = 65
             TocMachine.lunch['meal'] = '炒飯'
             
             print(TocMachine.breakfast['money'],"breakfast")
@@ -487,7 +459,7 @@ class TocMachine(GraphMachine):
             TocMachine.lunch['calorie'] = 600
             TocMachine.lunch['starch']  = 60
             TocMachine.lunch['protein'] = 10
-            TocMachine.lunch['money']   = int(input[1])
+            TocMachine.lunch['money']   = 40
             TocMachine.lunch['meal'] = '乾麵'
             
             print(TocMachine.breakfast['money'],"breakfast")
@@ -498,8 +470,8 @@ class TocMachine(GraphMachine):
             TocMachine.lunch['calorie'] = 800
             TocMachine.lunch['starch']  = 80
             TocMachine.lunch['protein'] = 40
-            TocMachine.lunch['money']   = int(input[1])
-            TocMachine.lunch['meal'] = '便當'
+            TocMachine.lunch['money']   = 65
+            TocMachine.lunch['meal'] = '雞腿便當'
             
             print(TocMachine.breakfast['money'],"breakfast")
             print(TocMachine.lunch['money'],"lunch")
@@ -514,19 +486,19 @@ class TocMachine(GraphMachine):
     def on_enter_dinner(self, event,indic=""):
         btn_action=[
             MessageTemplateAction(
-                label='海南雞飯 輸入(1空格$)',
+                label='海南雞飯($75) 輸入1',
                 text= 'chickenrice'
             ),
             MessageTemplateAction(
-                label='關東煮 輸入(2空格$)',
+                label='關東煮($70) 輸入2',
                 text='oden'
             ),
             MessageTemplateAction(
-                label='涼麵 輸入(3空格$)',
+                label='涼麵($49) 輸入3',
                 text='coldnoodle'
             ),
             MessageTemplateAction(
-                label='打拋豬飯 輸入(4空格$)',
+                label='打拋豬飯($80) 輸入4',
                 text='chilipork'
             )
         ]
@@ -546,7 +518,7 @@ class TocMachine(GraphMachine):
             TocMachine.dinner['starch']  = 80
             TocMachine.dinner['protein'] = 50
 
-            TocMachine.dinner['money']   = int(input[1])
+            TocMachine.dinner['money']   = 75
             TocMachine.dinner['meal'] = '海南雞飯'
 
             print(TocMachine.breakfast['money'],"breakfast")
@@ -557,7 +529,7 @@ class TocMachine(GraphMachine):
             TocMachine.dinner['calorie'] = 800
             TocMachine.dinner['starch']  = 90
             TocMachine.dinner['protein'] = 30
-            TocMachine.dinner['money']   = int(input[1])
+            TocMachine.dinner['money']   = 70
             TocMachine.dinner['meal'] = '關東煮'
 
             print(TocMachine.breakfast['money'],"breakfast")
@@ -569,7 +541,7 @@ class TocMachine(GraphMachine):
             TocMachine.dinner['calorie'] = 450
             TocMachine.dinner['starch']  = 50
             TocMachine.dinner['protein'] = 15
-            TocMachine.dinner['money']   = int(input[1])
+            TocMachine.dinner['money']   = 49
             TocMachine.dinner['meal'] = '涼麵'
 
             print(TocMachine.breakfast['money'],"breakfast")
@@ -580,7 +552,7 @@ class TocMachine(GraphMachine):
             TocMachine.dinner['calorie'] = 600
             TocMachine.dinner['starch']  = 90
             TocMachine.dinner['protein'] = 30
-            TocMachine.dinner['money']   = int(input[1])
+            TocMachine.dinner['money']   = 80
             TocMachine.dinner['meal'] = '打拋豬飯'
 
             print(TocMachine.breakfast['money'],"breakfast")
