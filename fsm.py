@@ -331,7 +331,7 @@ class TocMachine(GraphMachine):
         btn_action=[
             MessageTemplateAction(
                 label='三明治($15)',
-                text='hamegg'
+                text='sandwitch'
             ),
             MessageTemplateAction(
                 label='蛋餅($20)',
@@ -339,7 +339,7 @@ class TocMachine(GraphMachine):
             ),
             MessageTemplateAction(
                 label='飯糰($15)',
-                text='riceroll'
+                text='riceball'
             ),
             MessageTemplateAction(
                 label='漢堡($35)',
@@ -370,7 +370,7 @@ class TocMachine(GraphMachine):
         #print(event.message.text)
         print(input)
         #if input[0] == '1':
-        if event.message.text == 'hamegg':
+        if event.message.text == 'sandwitch':
             TocMachine.breakfast['calorie'] = 270
             TocMachine.breakfast['starch']  = 20
             TocMachine.breakfast['protein'] = 13
@@ -379,7 +379,7 @@ class TocMachine(GraphMachine):
             print(TocMachine.breakfast['money'],"breakfast")
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
-            print("in hamegg")
+            print("in sandwitch")
         elif event.message.text == 'chiomelet':
             TocMachine.breakfast['calorie'] = 230
             TocMachine.breakfast['starch']  = 25
@@ -390,7 +390,7 @@ class TocMachine(GraphMachine):
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
             print("in chiomelet")
-        elif event.message.text == 'riceroll':
+        elif event.message.text == 'riceball':
             TocMachine.breakfast['calorie'] = 220
             TocMachine.breakfast['starch']  = 40
             TocMachine.breakfast['protein'] = 5
@@ -399,7 +399,7 @@ class TocMachine(GraphMachine):
             print(TocMachine.breakfast['money'],"breakfast")
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
-            print("in riceroll")
+            print("in riceball")
         elif event.message.text == 'hamburger':
             TocMachine.breakfast['calorie'] = 230
             TocMachine.breakfast['starch']  = 38
@@ -420,8 +420,8 @@ class TocMachine(GraphMachine):
     def on_enter_lunch(self, event,indic=""):
         btn_action=[
             MessageTemplateAction(
-                label='subway($90)',
-                text='subway'
+                label='豬排丼飯($90)',
+                text='Katsudon'
             ),
             MessageTemplateAction(
                 label='炒飯($65)',
@@ -433,7 +433,7 @@ class TocMachine(GraphMachine):
             ),
             MessageTemplateAction(
                 label='雞腿便當($65)',
-                text='boxedlunch'
+                text='chicken boxedlunch'
             )
         ]
         reply_token = event.reply_token
@@ -446,16 +446,16 @@ class TocMachine(GraphMachine):
         text = event.message.text
         input = text.split()
         print(input)
-        if event.message.text == 'subway':
+        if event.message.text == 'Katsudon':
             TocMachine.lunch['calorie'] = 500
             TocMachine.lunch['starch']  = 55
             TocMachine.lunch['protein'] = 35
             TocMachine.lunch['money']   = 90
-            TocMachine.lunch['meal'] = 'subway'
+            TocMachine.lunch['meal'] = '豬排丼飯'
             print(TocMachine.breakfast['money'],"breakfast")
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
-            print("in subway")
+            print("in Katsudon")
         elif event.message.text == 'friedrice':
             TocMachine.lunch['calorie'] = 600
             TocMachine.lunch['starch']  = 80
@@ -479,7 +479,7 @@ class TocMachine(GraphMachine):
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
             print("in noodles")
-        elif event.message.text == 'boxedlunch':
+        elif event.message.text == 'chicken boxedlunch':
             TocMachine.lunch['calorie'] = 800
             TocMachine.lunch['starch']  = 80
             TocMachine.lunch['protein'] = 40
@@ -489,7 +489,7 @@ class TocMachine(GraphMachine):
             print(TocMachine.breakfast['money'],"breakfast")
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
-            print("in boxedlunch")
+            print("in chicken boxedlunch")
         self.go_money(event,"lunch")
     
     #dinner
@@ -499,20 +499,20 @@ class TocMachine(GraphMachine):
     def on_enter_dinner(self, event,indic=""):
         btn_action=[
             MessageTemplateAction(
-                label='海南雞飯($75)',
-                text= 'chickenrice'
+                label='壽司餐盒($75)',
+                text= 'sushi'
             ),
             MessageTemplateAction(
                 label='關東煮($70)',
                 text='oden'
             ),
             MessageTemplateAction(
-                label='涼麵($49)',
-                text='coldnoodle'
+                label='火鍋($100)',
+                text='hot pot'
             ),
             MessageTemplateAction(
-                label='打拋豬飯($80)',
-                text='chilipork'
+                label='咖哩飯($80)',
+                text='Curry rice'
             )
         ]
         reply_token = event.reply_token
@@ -526,18 +526,18 @@ class TocMachine(GraphMachine):
         input = text.split()
         print(input)
         # print(text,"check the nextdinner")
-        if event.message.text == 'chickenrice':
+        if event.message.text == 'sushi':
             TocMachine.dinner['calorie'] = 800
             TocMachine.dinner['starch']  = 80
             TocMachine.dinner['protein'] = 50
 
             TocMachine.dinner['money']   = 75
-            TocMachine.dinner['meal'] = '海南雞飯'
+            TocMachine.dinner['meal'] = '壽司餐盒'
 
             print(TocMachine.breakfast['money'],"breakfast")
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
-            print("in chickenrice")
+            print("in sushi")
         elif event.message.text == 'oden':
             TocMachine.dinner['calorie'] = 800
             TocMachine.dinner['starch']  = 90
@@ -550,26 +550,26 @@ class TocMachine(GraphMachine):
             print(TocMachine.dinner['money'],"dinner")
             print("in oden")
 
-        elif event.message.text == 'coldnoodle':
-            TocMachine.dinner['calorie'] = 450
-            TocMachine.dinner['starch']  = 50
-            TocMachine.dinner['protein'] = 15
-            TocMachine.dinner['money']   = 49
-            TocMachine.dinner['meal'] = '涼麵'
+        elif event.message.text == 'hot pot':
+            TocMachine.dinner['calorie'] = 1000
+            TocMachine.dinner['starch']  = 100
+            TocMachine.dinner['protein'] = 75
+            TocMachine.dinner['money']   = 100
+            TocMachine.dinner['meal'] = '火鍋'
 
             print(TocMachine.breakfast['money'],"breakfast")
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
-            print("in coldnoodle")
-        elif event.message.text == 'chilipork':
+            print("in hot pot")
+        elif event.message.text == 'Curry rice':
             TocMachine.dinner['calorie'] = 600
             TocMachine.dinner['starch']  = 90
             TocMachine.dinner['protein'] = 30
             TocMachine.dinner['money']   = 80
-            TocMachine.dinner['meal'] = '打拋豬飯'
+            TocMachine.dinner['meal'] = '咖哩飯'
 
             print(TocMachine.breakfast['money'],"breakfast")
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
-            print("in chilipork")
+            print("in Curry rice")
         self.go_money(event,"dinner")
