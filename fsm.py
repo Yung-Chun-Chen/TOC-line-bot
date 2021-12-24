@@ -298,7 +298,7 @@ class TocMachine(GraphMachine):
         print(TocMachine.Totalprotein,"Totalprotein")
         
         #msg0 = '設定完身高體重即可換算\n\n'
-        msg1 = '推薦:上流戰爭\n' % (TocMachine.Totalcalorie)
+        msg1 = '推薦:上流戰爭%20d\n' % (TocMachine.Totalcalorie)
         msg2 = '您是否為VIP:%20d公克\n' % (TocMachine.Totalstarch)
         msg3 = '您的年紀:%15d公克\n' % (TocMachine.Totalprotein)
         msg4 = '您的預算:         %20d元\n\n' % (TocMachine.Totalmoney)
