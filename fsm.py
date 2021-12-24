@@ -44,11 +44,11 @@ class TocMachine(GraphMachine):
                 text='modified information'
             ),
             MessageTemplateAction(
-                label='分析早/午/晚餐營養指標',
+                label='訂閱資訊',
                 text='check nutrition'
             ),
             MessageTemplateAction(
-                label='建議營養比例',
+                label='推薦電影',
                 text='show suggestion'
             ),
             MessageTemplateAction(
@@ -66,24 +66,24 @@ class TocMachine(GraphMachine):
     def on_enter_checknutrition(self, event):
         btn_action=[
             MessageTemplateAction(
-                label='早餐',
+                label='華片',
                 text='breakfast'
             ),
             MessageTemplateAction(
-                label='午餐',
+                label='韓劇',
                 text='lunch'
             ),
             MessageTemplateAction(
-                label='晚餐',
+                label='動漫劇場版',
                 text='dinner'
             ),
             MessageTemplateAction(
-                label='顯示您的攝取資訊',
+                label='顯示您的訂閱資訊',
                 text='show nutrition'
             ),
         ]
         reply_token = event.reply_token
-        send_button_message(reply_token,btn_action,"選擇餐點","返回功能選單請輸入return")
+        send_button_message(reply_token,btn_action,"選擇片子","返回功能選單請輸入return")
     
     #input the information
     def is_going_to_information(self, event):
@@ -95,7 +95,7 @@ class TocMachine(GraphMachine):
         # return text.lower() == "information"
     def on_enter_information(self, event):
         reply_token = event.reply_token
-        send_text_message(reply_token, "歡迎光臨電影服務!\n******請先輸入基本資訊******\n\n輸入姓名")
+        send_text_message(reply_token, "歡迎光臨機上盒服務!\n******請先輸入基本資訊******\n\n輸入姓名")
     #input the height
     def is_going_to_height(self, event):
         text = event.message.text
@@ -105,7 +105,7 @@ class TocMachine(GraphMachine):
         text = event.message.text
         TocMachine.height = int(text)
         reply_token = event.reply_token
-        send_text_message(reply_token, "輸入性別")
+        send_text_message(reply_token, "是否為會員")
     #input the weight
     def is_going_to_weight(self, event):
         text = event.message.text
@@ -205,7 +205,7 @@ class TocMachine(GraphMachine):
     #deny
     def on_enter_money_deny(self, event, strback,sum):
         reply_token = event.reply_token
-        msg0="餘額不足\n輸入return返回功能表單"
+        msg0="您不是VIP\n輸入return返回功能表單"
         send_text_message(reply_token,msg0)
         print("in money deny")
         
@@ -221,7 +221,7 @@ class TocMachine(GraphMachine):
         
     def on_enter_calorie_deny(self, event,strback,sum):
         reply_token = event.reply_token
-        msg0="熱量太高\n輸入return返回功能表單"
+        msg0="餘額不足\n輸入return返回功能表單"
         send_text_message(reply_token,msg0)
         print("in calorie deny")
         if strback == "breakfast":
@@ -236,7 +236,7 @@ class TocMachine(GraphMachine):
         
     def on_enter_starch_deny(self, event,strback,sum):
         reply_token = event.reply_token
-        msg0="澱粉太多\n輸入return返回功能表單"
+        msg0="年紀不足\n輸入return返回功能表單"
         send_text_message(reply_token,msg0)
         print("in starch deny")
 
@@ -252,7 +252,7 @@ class TocMachine(GraphMachine):
 
     def on_enter_protein_deny(self, event,strback,sum):
         reply_token = event.reply_token
-        msg0="蛋白質太多\n輸入return返回功能表單"
+        msg0="血腥畫面太多\n輸入return返回功能表單"
         send_text_message(reply_token,msg0)
         print("in protein deny")
 
@@ -271,11 +271,11 @@ class TocMachine(GraphMachine):
         text = event.message.text
         return text.lower() == "show nutrition"
     def on_enter_showeat(self, event ,indic=""):  
-        msg0 = '餐點:\n       早餐%10s\n       午餐%10s\n       晚餐%10s\n' % (TocMachine.breakfast['meal'],TocMachine.lunch['meal'],TocMachine.dinner['meal'])
-        msg1 = '卡路里:\n       早餐%20d卡\n       午餐%20d卡\n       晚餐%20d卡\n' % (TocMachine.breakfast['calorie'],TocMachine.lunch['calorie'],TocMachine.dinner['calorie'])
-        msg2 = '澱粉:\n       早餐%20d克\n       午餐%20d克\n       晚餐%20d克\n' % (TocMachine.breakfast['starch'],TocMachine.lunch['starch'],TocMachine.dinner['starch'])
-        msg3 = '蛋白質:\n       早餐%20d克\n       午餐%20d克\n       晚餐%20d克\n' % (TocMachine.breakfast['protein'],TocMachine.lunch['protein'],TocMachine.dinner['protein'])
-        msg4 = '金額:\n       早餐%20d元\n       午餐%20d元\n       晚餐%20d元\n' % (TocMachine.breakfast['money'],TocMachine.lunch['money'],TocMachine.dinner['money'])
+        msg0 = '片名:\n       華片%10s\n       韓劇%10s\n       動漫劇場版%10s\n' % (TocMachine.breakfast['meal'],TocMachine.lunch['meal'],TocMachine.dinner['meal'])
+        msg1 = '金額:\n       華片%20d卡\n       韓劇%20d卡\n       動漫劇場版%20d卡\n' % (TocMachine.breakfast['calorie'],TocMachine.lunch['calorie'],TocMachine.dinner['calorie'])
+        msg2 = '需求年紀:\n       華片%20d克\n       韓劇%20d克\n       動漫劇場版%20d克\n' % (TocMachine.breakfast['starch'],TocMachine.lunch['starch'],TocMachine.dinner['starch'])
+        msg3 = '血腥分類:\n       華片%20d克\n       韓劇%20d克\n       動漫劇場版%20d克\n' % (TocMachine.breakfast['protein'],TocMachine.lunch['protein'],TocMachine.dinner['protein'])
+        msg4 = '需要VIP會員:\n       華片%20d元\n       韓劇%20d元\n       動漫劇場版%20d元\n' % (TocMachine.breakfast['money'],TocMachine.lunch['money'],TocMachine.dinner['money'])
         msg5 = '返回請輸入return'
         reply_token = event.reply_token
         send_text_message(reply_token,msg0+msg1+msg2+msg3+msg4+msg5)
@@ -298,10 +298,10 @@ class TocMachine(GraphMachine):
         print(TocMachine.Totalprotein,"Totalprotein")
         
         #msg0 = '設定完身高體重即可換算\n\n'
-        msg1 = '建議攝取熱量:%20d大卡\n' % (TocMachine.Totalcalorie)
-        msg2 = '建議攝取澱粉:%20d公克\n' % (TocMachine.Totalstarch)
-        msg3 = '建議攝取蛋白質:%15d公克\n' % (TocMachine.Totalprotein)
-        msg4 = '每日金額:         %20d元\n\n' % (TocMachine.Totalmoney)
+        msg1 = '推薦:上流戰爭\n' % (TocMachine.Totalcalorie)
+        msg2 = '您是否為VIP:%20d公克\n' % (TocMachine.Totalstarch)
+        msg3 = '您的年紀:%15d公克\n' % (TocMachine.Totalprotein)
+        msg4 = '您的預算:         %20d元\n\n' % (TocMachine.Totalmoney)
         msg5 = '返回請輸入return'
         reply_token = event.reply_token
         send_text_message(reply_token,msg1+msg2+msg3+msg4+msg5)
