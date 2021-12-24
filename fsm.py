@@ -387,7 +387,8 @@ class TocMachine(GraphMachine):
             print("in sandwitch")
             reply_token = event.reply_token
             send_image(reply_token, picture[0])
-            self.go_back()
+            self.go_money(event,"breakfast")
+            
         elif event.message.text == 'chiomelet':
             TocMachine.breakfast['calorie'] = 230
             TocMachine.breakfast['starch']  = 25
@@ -419,7 +420,7 @@ class TocMachine(GraphMachine):
             print(TocMachine.dinner['money'],"dinner")
             print("in hamburger")
 
-        self.go_money(event,"breakfast")
+        #self.go_money(event,"breakfast")
 
     #lunch
     def is_going_to_lunch(self, event):
