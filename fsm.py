@@ -3,9 +3,6 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, TemplateS
 # from utils import send_button_message,send_text_message,send_fsm
 from utils import *
 
-picture = ["https://imgur.com/JL1zwCv.jpg"
-            ]
-
 class TocMachine(GraphMachine):
     breakfast = {'calorie':0,'starch':0,'protein':0,'money':0,'meal':'none'} #starch:澱粉
     lunch     = {'calorie':0,'starch':0,'protein':0,'money':0,'meal':'none'}   
@@ -243,8 +240,6 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token,msg0)
         print("in starch deny")
 
-        
-
         if strback == "breakfast":
             sum -= TocMachine.breakfast['starch']
             self.go_checknutrition(event)
@@ -257,23 +252,7 @@ class TocMachine(GraphMachine):
 
     def on_enter_protein_deny(self, event,strback,sum):
 
-
-        # title = 'View more?'
-        # uptext = 'View more?'
-        # labels = ['Yes', 'No']
-        # texts = ["top", "cancel"]
-        # send_confirm_message(title, uptext, labels, texts)
-
-
-
-        # reply_token = event.reply_token
-        # msg0="蛋白質太多\n輸入return返回功能表單"
-        # send_text_message(reply_token,msg0)
         print("in protein deny")
-
-        # reply_token1 = event.reply_token
-        # send_image(reply_token1)
-        
 
         if strback == "breakfast":
             sum -= TocMachine.breakfast['protein']
@@ -372,16 +351,6 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         send_button_message(reply_token,btn_action,"早餐",indic)
 
-
-    # def is_going_to_showfsm(self, event,indic=""):
-    #     text = event.message.text
-    #     return text.lower() == "show fsm"
-
-    # def on_enter_showfsm(self, event ,indic=""):
-    #     reply_token = event.reply_token
-    #     send_fsm(reply_token)
-
-
     #next breakfast
     def is_going_to_nextbreakfast(self, event):
         text = event.message.text
@@ -391,7 +360,6 @@ class TocMachine(GraphMachine):
         input = text.split()
         #print(event.message.text)
         print(input)
-        #if input[0] == '1':
 
         if event.message.text == 'sandwitch':
             TocMachine.breakfast['calorie'] = 270
@@ -403,16 +371,6 @@ class TocMachine(GraphMachine):
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
             print("in sandwitch")
-            # reply_token = event.reply_token
-            # send_image(reply_token)
-            # message = {
-            #     "type": "image",
-            #     "originalContentUrl": "https://imgur.com/JL1zwCv.jpg",
-            #     "previewImageUrl": "https://imgur.com/JL1zwCv.jpg"
-            # }
-            # reply_token = event.reply_token
-            # send_image(reply_token, message)
-            #self.go_money(event,"breakfast")
             
         elif event.message.text == 'chiomelet':
             TocMachine.breakfast['calorie'] = 230
@@ -424,6 +382,7 @@ class TocMachine(GraphMachine):
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
             print("in chiomelet")
+
         elif event.message.text == 'riceball':
             TocMachine.breakfast['calorie'] = 220
             TocMachine.breakfast['starch']  = 40
@@ -434,6 +393,7 @@ class TocMachine(GraphMachine):
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
             print("in riceball")
+
         elif event.message.text == 'hamburger':
             TocMachine.breakfast['calorie'] = 230
             TocMachine.breakfast['starch']  = 38
