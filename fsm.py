@@ -374,7 +374,7 @@ class TocMachine(GraphMachine):
         #print(event.message.text)
         print(input)
         #if input[0] == '1':
-        
+
         if event.message.text == 'sandwitch':
             TocMachine.breakfast['calorie'] = 270
             TocMachine.breakfast['starch']  = 20
@@ -387,6 +387,7 @@ class TocMachine(GraphMachine):
             print("in sandwitch")
             reply_token = event.reply_token
             send_image(reply_token, picture[0])
+            self.go_back()
         elif event.message.text == 'chiomelet':
             TocMachine.breakfast['calorie'] = 230
             TocMachine.breakfast['starch']  = 25
