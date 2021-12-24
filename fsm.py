@@ -242,6 +242,10 @@ class TocMachine(GraphMachine):
         msg0="澱粉太多\n輸入return返回功能表單"
         send_text_message(reply_token,msg0)
         print("in starch deny")
+
+        reply_token1 = event.reply_token
+        send_image(reply_token1)
+
         if strback == "breakfast":
             sum -= TocMachine.breakfast['starch']
             self.go_checknutrition(event)
@@ -258,8 +262,7 @@ class TocMachine(GraphMachine):
         send_text_message(reply_token,msg0)
         print("in protein deny")
 
-        reply_token1 = event.reply_token
-        send_image(reply_token1)
+        
 
         if strback == "breakfast":
             sum -= TocMachine.breakfast['protein']
