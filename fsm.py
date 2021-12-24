@@ -82,7 +82,7 @@ class TocMachine(GraphMachine):
             ),
         ]
         reply_token = event.reply_token
-        send_button_message(reply_token,btn_action,"選擇餐點","返回功能選單請按1")
+        send_button_message(reply_token,btn_action,"選擇餐點","返回功能選單請按return")
     
     #input the information
     def is_going_to_information(self, event):
