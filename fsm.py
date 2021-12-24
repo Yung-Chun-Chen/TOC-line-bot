@@ -265,10 +265,10 @@ class TocMachine(GraphMachine):
         send_confirm_message(title, uptext, labels, texts)
 
 
-        
-        reply_token = event.reply_token
-        msg0="蛋白質太多\n輸入return返回功能表單"
-        send_text_message(reply_token,msg0)
+
+        # reply_token = event.reply_token
+        # msg0="蛋白質太多\n輸入return返回功能表單"
+        # send_text_message(reply_token,msg0)
         print("in protein deny")
 
         # reply_token1 = event.reply_token
