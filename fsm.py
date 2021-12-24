@@ -271,14 +271,17 @@ class TocMachine(GraphMachine):
         text = event.message.text
         return text.lower() == "show nutrition"
     def on_enter_showeat(self, event ,indic=""):  
-        msg0 = '餐點:\n       早餐%10s\n       午餐%10s\n       晚餐%10s\n' % (TocMachine.breakfast['meal'],TocMachine.lunch['meal'],TocMachine.dinner['meal'])
-        msg1 = '卡路里:\n       早餐%20d卡\n       午餐%20d卡\n       晚餐%20d卡\n' % (TocMachine.breakfast['calorie'],TocMachine.lunch['calorie'],TocMachine.dinner['calorie'])
-        msg2 = '澱粉:\n       早餐%20d克\n       午餐%20d克\n       晚餐%20d克\n' % (TocMachine.breakfast['starch'],TocMachine.lunch['starch'],TocMachine.dinner['starch'])
-        msg3 = '蛋白質:\n       早餐%20d克\n       午餐%20d克\n       晚餐%20d克\n' % (TocMachine.breakfast['protein'],TocMachine.lunch['protein'],TocMachine.dinner['protein'])
-        msg4 = '金額:\n       早餐%20d元\n       午餐%20d元\n       晚餐%20d元\n' % (TocMachine.breakfast['money'],TocMachine.lunch['money'],TocMachine.dinner['money'])
+        # msg0 = '餐點:\n       早餐%10s\n       午餐%10s\n       晚餐%10s\n' % (TocMachine.breakfast['meal'],TocMachine.lunch['meal'],TocMachine.dinner['meal'])
+        # msg1 = '卡路里:\n       早餐%20d卡\n       午餐%20d卡\n       晚餐%20d卡\n' % (TocMachine.breakfast['calorie'],TocMachine.lunch['calorie'],TocMachine.dinner['calorie'])
+        # msg2 = '澱粉:\n       早餐%20d克\n       午餐%20d克\n       晚餐%20d克\n' % (TocMachine.breakfast['starch'],TocMachine.lunch['starch'],TocMachine.dinner['starch'])
+        # msg3 = '蛋白質:\n       早餐%20d克\n       午餐%20d克\n       晚餐%20d克\n' % (TocMachine.breakfast['protein'],TocMachine.lunch['protein'],TocMachine.dinner['protein'])
+        # msg4 = '金額:\n       早餐%20d元\n       午餐%20d元\n       晚餐%20d元\n' % (TocMachine.breakfast['money'],TocMachine.lunch['money'],TocMachine.dinner['money'])
+        msg0='早餐:\n卡路里=%20d'% TocMachine.breakfast['calorie'] +'澱粉=%20d'% TocMachine.breakfast['starch']+'蛋白質=%20d'% TocMachine.breakfast['protein']+'金額=%20d'% TocMachine.breakfast['money']
+        msg1='午餐:\n卡路里=%20d'% TocMachine.lunch['calorie'] +'澱粉=%20d'% TocMachine.lunch['starch']+'蛋白質=%20d'% TocMachine.lunch['protein']+'金額=%20d'% TocMachine.lunch['money']
+        msg2='晚餐:\n卡路里=%20d'% TocMachine.dinner['calorie'] +'澱粉=%20d'% TocMachine.dinner['starch']+'蛋白質=%20d'% TocMachine.dinner['protein']+'金額=%20d'% TocMachine.dinner['money']
         msg5 = '返回請輸入return'
         reply_token = event.reply_token
-        send_text_message(reply_token,msg0+msg1+msg2+msg3+msg4+msg5)
+        send_text_message(reply_token,msg0+msg1+msg2+msg5)
     #show back
     def is_going_to_showback(self, event,indic=""):
         text = event.message.text
