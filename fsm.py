@@ -386,13 +386,13 @@ class TocMachine(GraphMachine):
             print(TocMachine.dinner['money'],"dinner")
             print("in sandwitch")
 
-            message = {
-                "type": "image",
-                "originalContentUrl": "https://imgur.com/JL1zwCv.jpg",
-                "previewImageUrl": "https://imgur.com/JL1zwCv.jpg"
-            }
-            reply_token = event.reply_token
-            send_image(reply_token, message)
+            # message = {
+            #     "type": "image",
+            #     "originalContentUrl": "https://imgur.com/JL1zwCv.jpg",
+            #     "previewImageUrl": "https://imgur.com/JL1zwCv.jpg"
+            # }
+            # reply_token = event.reply_token
+            # send_image(reply_token, message)
             #self.go_money(event,"breakfast")
             
         elif event.message.text == 'chiomelet':
