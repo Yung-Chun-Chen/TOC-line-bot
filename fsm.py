@@ -385,7 +385,8 @@ class TocMachine(GraphMachine):
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
             print("in sandwitch")
-
+            reply_token = event.reply_token
+            send_image(reply_token)
             # message = {
             #     "type": "image",
             #     "originalContentUrl": "https://imgur.com/JL1zwCv.jpg",
