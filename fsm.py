@@ -338,11 +338,11 @@ class TocMachine(GraphMachine):
                 text='chiomelet'
             ),
             MessageTemplateAction(
-                label='飯糰($15)',
+                label='飯糰($35)',
                 text='riceball'
             ),
             MessageTemplateAction(
-                label='漢堡($35)',
+                label='漢堡($55)',
                 text='hamburger'
             ),
         ]
