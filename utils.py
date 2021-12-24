@@ -14,8 +14,8 @@ def send_text_message(reply_token, text):
 def send_fsm(reply_token):
     line_bot_api = LineBotApi(channel_access_token)
     fsm = ImageSendMessage(
-        original_content_url='https://i.imgur.com/8EU4lGi.png',
-        preview_image_url='https://i.imgur.com/8EU4lGi.png'
+        original_content_url='https://2.share.photo.xuite.net/yield.life/120e53e/19407657/1209035797_l.jpg',
+        preview_image_url='https://2.share.photo.xuite.net/yield.life/120e53e/19407657/1209035797_l.jpg'
     )
     line_bot_api.reply_message(reply_token, fsm)
     return "OK"
@@ -41,8 +41,8 @@ def send_button_message(reply_token,btn_action,indicate,textdic='選擇接近的
 def send_image(reply_token):
     line_bot_api = LineBotApi(channel_access_token)
     pic = ImageSendMessage(
-        original_content_url="https://imgur.com/JL1zwCv.jpg",
-        preview_image_url="https://imgur.com/JL1zwCv.jpg"
+        original_content_url="https://2.share.photo.xuite.net/yield.life/120e53e/19407657/1209035797_l.jpg",
+        preview_image_url="https://2.share.photo.xuite.net/yield.life/120e53e/19407657/1209035797_l.jpg"
     )
     line_bot_api.reply_message(reply_token, pic)
     return "OK"
