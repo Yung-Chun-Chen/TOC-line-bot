@@ -39,19 +39,19 @@ class TocMachine(GraphMachine):
         
         btn_action=[
             MessageTemplateAction(
-                label='更新個人資訊',
+                label='設定個人資訊',
                 text='modified information'
             ),
             MessageTemplateAction(
-                label='檢驗  早/午/晚餐熱量',
+                label='分析早/午/晚餐營養指標',
                 text='check nutrition'
             ),
             MessageTemplateAction(
-                label='顯示   建議營養比例',
+                label='建議營養比例',
                 text='show suggestion'
             ),
             MessageTemplateAction(
-                label='顯示 fsm圖',
+                label='show FSM',
                 text='show fsm'
             ),
         ]
@@ -77,8 +77,8 @@ class TocMachine(GraphMachine):
                 text='dinner'
             ),
             MessageTemplateAction(
-                label='顯示     營養比例/熱量',
-                text='showeat'
+                label='顯示您的攝取資訊',
+                text='show nutrition'
             ),
         ]
         reply_token = event.reply_token
@@ -114,7 +114,7 @@ class TocMachine(GraphMachine):
         TocMachine.weight = int(text)
         print("in weight")
         reply_token = event.reply_token
-        send_text_message(reply_token, "輸入每日預算(dollar)")
+        send_text_message(reply_token, "輸入預算(dollar)")
 
     #input the money
     def is_going_to_money(self, event):
@@ -266,7 +266,7 @@ class TocMachine(GraphMachine):
     #showeat
     def is_going_to_showeat(self, event,indic=""):
         text = event.message.text
-        return text.lower() == "showeat"
+        return text.lower() == "show nutrition"
     def on_enter_showeat(self, event ,indic=""):  
         msg0 = '餐點:\n       早餐%10s\n       午餐%10s\n       晚餐%10s\n' % (TocMachine.breakfast['meal'],TocMachine.lunch['meal'],TocMachine.dinner['meal'])
         msg1 = '卡路里:\n       早餐%20d卡\n       午餐%20d卡\n       晚餐%20d卡\n' % (TocMachine.breakfast['calorie'],TocMachine.lunch['calorie'],TocMachine.dinner['calorie'])
@@ -294,14 +294,14 @@ class TocMachine(GraphMachine):
         print(TocMachine.Totalstarch,"Totalstarch")
         print(TocMachine.Totalprotein,"Totalprotein")
         
-        msg0 = '設定完身高體重即可換算\n\n'
+        #msg0 = '設定完身高體重即可換算\n\n'
         msg1 = '建議攝取熱量:%20d大卡\n' % (TocMachine.Totalcalorie)
         msg2 = '建議攝取澱粉:%20d公克\n' % (TocMachine.Totalstarch)
         msg3 = '建議攝取蛋白質:%15d公克\n' % (TocMachine.Totalprotein)
         msg4 = '每日金額:         %20d元\n\n' % (TocMachine.Totalmoney)
         msg5 = '返回請輸入return'
         reply_token = event.reply_token
-        send_text_message(reply_token,msg0+msg1+msg2+msg3+msg4+msg5)
+        send_text_message(reply_token,msg1+msg2+msg3+msg4+msg5)
     
     #showfsm
     def is_going_to_showfsm(self, event,indic=""):
