@@ -251,7 +251,9 @@ class TocMachine(GraphMachine):
             self.go_checknutrition(event)
 
     def on_enter_protein_deny(self, event,strback,sum):
-
+        reply_token = event.reply_token
+        msg0="蛋白質太多\n輸入return返回功能表單"
+        send_text_message(reply_token,msg0)
         print("in protein deny")
 
         if strback == "breakfast":
