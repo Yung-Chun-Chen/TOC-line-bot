@@ -278,24 +278,24 @@ class TocMachine(GraphMachine):
         # msg4 = '金額:\n       早餐%20d元\n       午餐%20d元\n       晚餐%20d元\n' % (TocMachine.breakfast['money'],TocMachine.lunch['money'],TocMachine.dinner['money'])
         msg0='早餐:\n'
         msg1='餐點: %10s\n' % TocMachine.breakfast['meal']
-        msg2='卡路里:    %d\n'% TocMachine.breakfast['calorie'] 
-        msg3='澱粉:    %d\n'% TocMachine.breakfast['starch']
-        msg4='蛋白質:    %d\n'% TocMachine.breakfast['protein']
-        msg5='金額:    %d\n'% TocMachine.breakfast['money']
+        msg2='卡路里:    %d\n大卡'% TocMachine.breakfast['calorie'] 
+        msg3='澱粉:      %d\n克'% TocMachine.breakfast['starch']
+        msg4='蛋白質:    %d\n克'% TocMachine.breakfast['protein']
+        msg5='金額:      %d\n元'% TocMachine.breakfast['money']
         
         msg6='\n午餐:\n'
         msg7='餐點: %10s\n' % TocMachine.lunch['meal']
-        msg8='卡路里:    %d\n'% TocMachine.lunch['calorie'] 
-        msg9='澱粉:    %d\n'% TocMachine.lunch['starch']
-        msg10='蛋白質:    %d\n'% TocMachine.lunch['protein']
-        msg11='金額:    %d\n'% TocMachine.lunch['money']
+        msg8='卡路里:    %d\n大卡'% TocMachine.lunch['calorie'] 
+        msg9='澱粉:      %d\n克'% TocMachine.lunch['starch']
+        msg10='蛋白質:    %d\n克'% TocMachine.lunch['protein']
+        msg11='金額:      %d\n元'% TocMachine.lunch['money']
 
         msg12='\n晚餐:\n'
         msg13='餐點: %10s\n' % TocMachine.dinner['meal']
-        msg14='卡路里:    %d\n'% TocMachine.dinner['calorie'] 
-        msg15='澱粉:    %d\n'% TocMachine.dinner['starch']
-        msg16='蛋白質:    %d\n'% TocMachine.dinner['protein']
-        msg17='金額:    %d\n\n'% TocMachine.dinner['money']
+        msg14='卡路里:    %d\n大卡'% TocMachine.dinner['calorie'] 
+        msg15='澱粉:      %d\n克'% TocMachine.dinner['starch']
+        msg16='蛋白質:    %d\n克'% TocMachine.dinner['protein']
+        msg17='金額:      %d\n元\n'% TocMachine.dinner['money']
         msg18 = '返回請輸入return'
         reply_token = event.reply_token
         send_text_message(reply_token,msg0+msg1+msg2+msg3+msg4+msg5+msg6+msg7+msg8+msg9+msg10+msg11+msg12+msg13+msg14+msg15+msg16+msg17+msg18)
