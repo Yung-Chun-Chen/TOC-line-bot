@@ -256,6 +256,16 @@ class TocMachine(GraphMachine):
             self.go_checknutrition(event)
 
     def on_enter_protein_deny(self, event,strback,sum):
+
+
+        title = 'View more?'
+        uptext = 'View more?'
+        labels = ['Yes', 'No']
+        texts = ["top", "cancel"]
+        send_confirm_message(title, uptext, labels, texts)
+
+
+        
         reply_token = event.reply_token
         msg0="蛋白質太多\n輸入return返回功能表單"
         send_text_message(reply_token,msg0)
@@ -263,11 +273,7 @@ class TocMachine(GraphMachine):
 
         # reply_token1 = event.reply_token
         # send_image(reply_token1)
-        title = 'View more?'
-        uptext = 'View more?'
-        labels = ['Yes', 'No']
-        texts = ["top", "cancel"]
-        send_confirm_message(title, uptext, labels, texts)
+        
 
         if strback == "breakfast":
             sum -= TocMachine.breakfast['protein']
