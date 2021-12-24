@@ -385,8 +385,8 @@ class TocMachine(GraphMachine):
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
             print("in sandwitch")
-            reply_token = event.reply_token
-            send_image(reply_token, picture[0])
+            # reply_token = event.reply_token
+            # send_image(reply_token, picture[0])
             #self.go_money(event,"breakfast")
             
         elif event.message.text == 'chiomelet':
