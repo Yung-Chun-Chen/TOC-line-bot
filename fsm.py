@@ -937,8 +937,10 @@ class TocMachine(GraphMachine):
     def on_enter_nextbreakfast(self, event):
         text = event.message.text
         input = text.split()
-        print(event.message.text)
-        if input[0] == '1':
+        #print(event.message.text)
+        print(input)
+        #if input[0] == '1':
+        if event.message.text == 'hamegg':
             TocMachine.breakfast['calorie'] = 270
             TocMachine.breakfast['starch']  = 20
             TocMachine.breakfast['protein'] = 13
