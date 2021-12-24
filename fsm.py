@@ -374,6 +374,7 @@ class TocMachine(GraphMachine):
         #print(event.message.text)
         print(input)
         #if input[0] == '1':
+        
         if event.message.text == 'sandwitch':
             TocMachine.breakfast['calorie'] = 270
             TocMachine.breakfast['starch']  = 20
