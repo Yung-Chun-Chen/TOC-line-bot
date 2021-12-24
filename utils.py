@@ -14,8 +14,8 @@ def send_text_message(reply_token, text):
 def send_fsm(reply_token):
     line_bot_api = LineBotApi(channel_access_token)
     fsm = ImageSendMessage(
-        original_content_url='https://i.imgur.com/8EU4lGi.png',
-        preview_image_url='https://i.imgur.com/8EU4lGi.png'
+        original_content_url='https://as.chdev.tw/web/article/photos/1/5/7/2d0194d52c4874787a293292dafa7fd9aaa2de6e.jpg',
+        preview_image_url='https://as.chdev.tw/web/article/photos/1/5/7/2d0194d52c4874787a293292dafa7fd9aaa2de6e.jpg'
     )
     line_bot_api.reply_message(reply_token, fsm)
     return "OK"
