@@ -1,6 +1,10 @@
 from transitions.extensions import GraphMachine
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction, PostbackTemplateAction
-from utils import send_button_message,send_text_message,send_fsm
+# from utils import send_button_message,send_text_message,send_fsm
+from utils import *
+
+picture = ["https://imgur.com/JL1zwCv.jpg"
+            ]
 
 class TocMachine(GraphMachine):
     breakfast = {'calorie':0,'starch':0,'protein':0,'money':0,'meal':'none'} #starch:澱粉
@@ -380,6 +384,8 @@ class TocMachine(GraphMachine):
             print(TocMachine.lunch['money'],"lunch")
             print(TocMachine.dinner['money'],"dinner")
             print("in sandwitch")
+            reply_token = event.reply_token
+            send_image(reply_token, picture[0])
         elif event.message.text == 'chiomelet':
             TocMachine.breakfast['calorie'] = 230
             TocMachine.breakfast['starch']  = 25

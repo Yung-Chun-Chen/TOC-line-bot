@@ -38,6 +38,15 @@ def send_button_message(reply_token,btn_action,indicate,textdic='選擇接近的
 
     return "OK"
 
+def send_image(reply_token, text):
+    line_bot_api = LineBotApi(channel_access_token)
+    line_bot_api.reply_message(reply_token,ImageSendMessage(
+		original_content_url = text,
+		preview_image_url = text
+            )
+    )
+    return "OK"
+
 """
 def send_image_url(id, img_url):
     pass
