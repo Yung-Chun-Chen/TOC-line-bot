@@ -258,11 +258,11 @@ class TocMachine(GraphMachine):
     def on_enter_protein_deny(self, event,strback,sum):
 
 
-        title = 'View more?'
-        uptext = 'View more?'
-        labels = ['Yes', 'No']
-        texts = ["top", "cancel"]
-        send_confirm_message(title, uptext, labels, texts)
+        # title = 'View more?'
+        # uptext = 'View more?'
+        # labels = ['Yes', 'No']
+        # texts = ["top", "cancel"]
+        # send_confirm_message(title, uptext, labels, texts)
 
 
 
