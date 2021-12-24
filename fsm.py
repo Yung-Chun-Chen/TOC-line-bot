@@ -564,25 +564,25 @@ class TocMachine(GraphMachine):
             ),
             MessageTemplateAction(
                 label='檢驗  早/午/晚餐熱量',
-                text='regfood'
+                text='check nutrition'
             ),
             MessageTemplateAction(
                 label='顯示   建議營養比例',
-                text='showsuggest'
+                text='show suggestion'
             ),
             MessageTemplateAction(
                 label='顯示 fsm圖',
-                text='showfsm'
+                text='show fsm'
             ),
         ]
         reply_token = event.reply_token
         send_button_message(reply_token,btn_action,"功能表單","提供以下功能")
 
     #input the food
-    def is_going_to_regfood(self, event):
+    def is_going_to_checknutrition(self, event):
         text = event.message.text
-        return text.lower() == "regfood"
-    def on_enter_regfood(self, event):
+        return text.lower() == "check nutrition"
+    def on_enter_checknutrition(self, event):
         btn_action=[
             MessageTemplateAction(
                 label='早餐',
@@ -717,7 +717,7 @@ class TocMachine(GraphMachine):
         print(TocMachine.dinner['protein'],"dinner")
         print(sum,"sum = ")
         if sum < TocMachine.Totalprotein:
-            self.go_regfood(event)
+            self.go_checknutrition(event)
         else:
             self.go_protein_deny(event,strback,sum)
     
@@ -730,13 +730,13 @@ class TocMachine(GraphMachine):
         
         if strback == "breakfast":
             sum -= TocMachine.breakfast['money']
-            self.go_regfood(event)
+            self.go_checknutrition(event)
         elif strback == "lunch":
             sum -= TocMachine.lunch['money']
-            self.go_regfood(event)
+            self.go_checknutrition(event)
         else:
             sum -= TocMachine.dinner['money']
-            self.go_regfood(event)
+            self.go_checknutrition(event)
         
     def on_enter_calorie_deny(self, event,strback,sum):
         reply_token = event.reply_token
@@ -745,13 +745,13 @@ class TocMachine(GraphMachine):
         print("in calorie deny")
         if strback == "breakfast":
             sum -= TocMachine.breakfast['calorie']
-            self.go_regfood(event)
+            self.go_checknutrition(event)
         elif strback == "lunch":
             sum -= TocMachine.lunch['calorie']
-            self.go_regfood(event)
+            self.go_checknutrition(event)
         else:
             sum -= TocMachine.dinner['calorie']
-            self.go_regfood(event)
+            self.go_checknutrition(event)
         
     def on_enter_starch_deny(self, event,strback,sum):
         reply_token = event.reply_token
@@ -760,13 +760,13 @@ class TocMachine(GraphMachine):
         print("in starch deny")
         if strback == "breakfast":
             sum -= TocMachine.breakfast['starch']
-            self.go_regfood(event)
+            self.go_checknutrition(event)
         elif strback == "lunch":
             sum -= TocMachine.lunch['starch']
-            self.go_regfood(event)
+            self.go_checknutrition(event)
         else:
             sum -= TocMachine.dinner['starch']
-            self.go_regfood(event)
+            self.go_checknutrition(event)
 
     def on_enter_protein_deny(self, event,strback,sum):
         reply_token = event.reply_token
@@ -775,13 +775,13 @@ class TocMachine(GraphMachine):
         print("in protein deny")
         if strback == "breakfast":
             sum -= TocMachine.breakfast['protein']
-            self.go_regfood(event)
+            self.go_checknutrition(event)
         elif strback == "lunch":
             sum -= TocMachine.lunch['protein']
-            self.go_regfood(event)
+            self.go_checknutrition(event)
         else:
             sum -= TocMachine.dinner['protein']
-            self.go_regfood(event)
+            self.go_checknutrition(event)
  
     #showeat
     def is_going_to_showeat(self, event,indic=""):
@@ -801,12 +801,12 @@ class TocMachine(GraphMachine):
         text = event.message.text
         return text.lower() == "1"
     def on_enter_showback(self, event ,indic=""):  
-        self.go_regfood(event)
+        self.go_checknutrition(event)
 
     #showsuggest
     def is_going_to_showsuggest(self, event,indic=""):
         text = event.message.text
-        return text.lower() == "showsuggest"
+        return text.lower() == "show suggestion"
     def on_enter_showsuggest(self, event ,indic=""):
         print("in show suggest")  
         print(TocMachine.Totalmoney,"totalmoney")
@@ -826,13 +826,13 @@ class TocMachine(GraphMachine):
     #showfsm
     def is_going_to_showfsm(self, event,indic=""):
         text = event.message.text
-        return text.lower() == "showfsm"
+        return text.lower() == "show fsm"
 
     def on_enter_showfsm(self, event ,indic=""):
         reply_token = event.reply_token
         send_fsm(reply_token)
 
-    #regfood back to start
+    #checknutrition back to start
     def is_going_to_regtostart(self, event,indic=""):
         text = event.message.text
         reply_token = event.reply_token
