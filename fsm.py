@@ -560,7 +560,7 @@ class TocMachine(GraphMachine):
         btn_action=[
             MessageTemplateAction(
                 label='更新個人資訊',
-                text='information'
+                text='modified information'
             ),
             MessageTemplateAction(
                 label='檢驗  早/午/晚餐熱量',
@@ -607,7 +607,7 @@ class TocMachine(GraphMachine):
     #input the information
     def is_going_to_information(self, event):
         text = event.message.text
-        if(text.lower() == "start" or text.lower() == "information"):
+        if(text.lower() == "start" or text.lower() == "modified information"):
             return True
         else:
             return False
