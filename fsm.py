@@ -145,7 +145,7 @@ class TocMachine(GraphMachine):
         print(TocMachine.Totalcalorie,"Totalcalorie")
         print(TocMachine.Totalstarch,"Totalstarch")
         print(TocMachine.Totalprotein,"Totalprotein")
-        self.go_regtostart(event)
+        self.go_backtostart(event)
 
     #check
     def on_enter_examine(self, event, strback):
@@ -266,11 +266,11 @@ class TocMachine(GraphMachine):
             sum -= TocMachine.dinner['protein']
             self.go_checknutrition(event)
  
-    #showeat
-    def is_going_to_showeat(self, event,indic=""):
+    #showconsume
+    def is_going_to_showconsume(self, event,indic=""):
         text = event.message.text
         return text.lower() == "show nutrition"
-    def on_enter_showeat(self, event ,indic=""):  
+    def on_enter_showconsume(self, event ,indic=""):  
         msg0='早餐:\n'
         msg1='餐點:   %10s\n' % TocMachine.breakfast['meal']
         msg2='卡路里:      %d大卡\n'% TocMachine.breakfast['calorie'] 
@@ -338,15 +338,15 @@ class TocMachine(GraphMachine):
         send_fsm(reply_token)
 
     #checknutrition back to start
-    def is_going_to_regtostart(self, event,indic=""):
+    def is_going_to_backtostart(self, event,indic=""):
         text = event.message.text
         reply_token = event.reply_token
         if text.lower() != "return":
             send_text_message(reply_token,"輸入return回到上一個階段")
         return text.lower() == "return"
-    def on_enter_regtostart(self, event ,indic=""):  
+    def on_enter_backtostart(self, event ,indic=""):  
         print(" go to start")
-        self.go_regtostart(event)
+        self.go_backtostart(event)
     
     #breakfast
     def is_going_to_breakfast(self, event,indic=""):

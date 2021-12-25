@@ -14,8 +14,8 @@ load_dotenv()
 
 machine = TocMachine(
     states=["user","start","information","checknutrition",
-            'height','weight','money','age','showeat','showback',"showsuggest","showfsm",
-            "breakfast",'lunch','dinner','regtostart',
+            'height','weight','money','age','showconsume','showback',"showsuggest","showfsm",
+            "breakfast",'lunch','dinner','backtostart',
             'nextbreakfast','nextlunch','nextdinner',
             'money_check','calorie_check','starch_check','protein_check',
             'money_deny','calorie_deny','starch_deny','protein_deny',
@@ -37,7 +37,7 @@ machine = TocMachine(
         {"trigger": "advance","source": "checknutrition","dest": "breakfast","conditions": "is_going_to_breakfast",},
         {"trigger": "advance","source": "checknutrition","dest": "lunch","conditions": "is_going_to_lunch",},
         {"trigger": "advance","source": "checknutrition","dest": "dinner","conditions": "is_going_to_dinner",},
-        {"trigger": "advance","source": "checknutrition","dest": "showeat","conditions": "is_going_to_showeat",},
+        {"trigger": "advance","source": "checknutrition","dest": "showconsume","conditions": "is_going_to_showconsume",},
         #three meal to next 
         {"trigger": "advance","source": "breakfast","dest": "nextbreakfast","conditions": "is_going_to_nextbreakfast",},
         {"trigger": "advance","source": "lunch","dest": "nextlunch","conditions": "is_going_to_nextlunch",},
@@ -61,11 +61,11 @@ machine = TocMachine(
         {"trigger":"go_checknutrition","source":['money_deny','calorie_deny','starch_deny','protein_deny'],"dest":"checknutrition"},
         
         #back to start
-        {"trigger": "advance","source": ["showsuggest","checknutrition","showfsm"],"dest": "regtostart","conditions": "is_going_to_regtostart",},
+        {"trigger": "advance","source": ["showsuggest","checknutrition","showfsm"],"dest": "backtostart","conditions": "is_going_to_backtostart",},
         #back to start by go
-        {"trigger":"go_regtostart","source":['regtostart','age'],"dest":"start"},
-        #from showeat go to showback
-        {"trigger": "advance","source": "showeat","dest": "showback","conditions": "is_going_to_showback",},
+        {"trigger":"go_backtostart","source":['backtostart','age'],"dest":"start"},
+        #from showconsume go to showback
+        {"trigger": "advance","source": "showconsume","dest": "showback","conditions": "is_going_to_showback",},
         #back to checknutrition
         {"trigger":"go_checknutrition","source":['protein_check','showback'],"dest":"checknutrition"},
         
