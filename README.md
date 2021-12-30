@@ -26,7 +26,7 @@
 # 點選 早餐
 ![breakfast](https://user-images.githubusercontent.com/79755310/147723601-51745287-dfd4-40e6-bc5e-25edfdf6541a.jpg)
 
-# 之後回到「選擇餐點」，點選 顯示您的攝取資訊
+# 點選餐點後回到「選擇餐點」，點選 顯示您的攝取資訊
 ![shownutrition](https://user-images.githubusercontent.com/79755310/147723746-b4415e57-06dd-4914-af32-d933a459c27f.jpg)
 
 ![shownutrition2](https://user-images.githubusercontent.com/79755310/147723762-d66658d7-3d60-4bbc-ae9b-a37a9dcf942f.jpg)
@@ -34,9 +34,8 @@
 # 輸入return繼續選擇午餐、晚餐
 ![backtochecknutrition](https://user-images.githubusercontent.com/79755310/147724446-125f7aa8-220a-48c2-8d0c-be2339b9a8f3.png)
 
-
-# 之後繼續選擇午餐、晚餐
 ![lunch](https://user-images.githubusercontent.com/79755310/147723782-6613d5a5-62fd-44e0-9d79-b124e4e90ed7.jpg)
+
 ![dinner](https://user-images.githubusercontent.com/79755310/147723787-5bccd246-0b6b-4b2c-a7f5-92bf6d30d007.jpg)
 
 # 輸入完 早/午/晚餐 後的完整攝取資訊
