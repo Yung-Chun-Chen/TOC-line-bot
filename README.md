@@ -1,48 +1,50 @@
 # Usage
-輸入start開始
+# 輸入start開始
 ![start](https://user-images.githubusercontent.com/79755310/147723358-ef612368-304d-48a8-990e-cf85167c5b4d.jpg)
 
-設定身高、體重、預算、年齡
+# 設定身高、體重、預算、年齡
 ![function_list](https://user-images.githubusercontent.com/79755310/147723437-809ebd81-5d72-4bbf-9ecb-b83e33b58638.jpg)
 
-出現「功能選單」
+# 出現「功能選單」
 ![function_list2](https://user-images.githubusercontent.com/79755310/147723463-e653b69c-31e4-476c-9a71-003cb309b800.jpg)
 
-點選 show FSM
+# 點選 show FSM
 ![show_fsm](https://user-images.githubusercontent.com/79755310/147723481-396ab84e-a711-441e-89f2-b1d4b491d882.jpg)
 
-FSM圖
+# FSM圖
 ![fsm](https://user-images.githubusercontent.com/79755310/147723494-0f2496d7-bb0a-4f96-a0db-5dbf0942f24d.jpg)
 
-點選 建議營養比例
+# 點選 建議營養比例
 ![showsuggestion](https://user-images.githubusercontent.com/79755310/147723520-6351e0d1-0692-4a31-b057-e9ab21c6ea56.jpg)
 
-點選 設定個人資訊 更新身高、體重、預算、年齡
+# 點選 設定個人資訊 更新身高、體重、預算、年齡
 ![modified_information](https://user-images.githubusercontent.com/79755310/147723870-0f99d5f0-4df0-4826-9794-2e9d09fb0e99.jpg)
 
-點選 分析早/午/晚餐營養指標 進入「選擇餐點」
+# 點選 分析早/午/晚餐營養指標 進入「選擇餐點」
 ![checknutrition](https://user-images.githubusercontent.com/79755310/147723580-e049c130-001b-4dab-9067-fd9bdd0dbb67.jpg)
 
-點選 早餐
+# 點選 早餐
 ![breakfast](https://user-images.githubusercontent.com/79755310/147723601-51745287-dfd4-40e6-bc5e-25edfdf6541a.jpg)
 
-之後回到「選擇餐點」，點選 顯示您的攝取資訊
+# 之後回到「選擇餐點」，點選 顯示您的攝取資訊
 ![shownutrition](https://user-images.githubusercontent.com/79755310/147723746-b4415e57-06dd-4914-af32-d933a459c27f.jpg)
 
-輸入return繼續選擇午餐、晚餐
-![Uploading backtochecknutrition.jpg…]()
+# 輸入return繼續選擇午餐、晚餐
+
+
+
 
 ![shownutrition2](https://user-images.githubusercontent.com/79755310/147723762-d66658d7-3d60-4bbc-ae9b-a37a9dcf942f.jpg)
 
-之後繼續選擇午餐、晚餐
+# 之後繼續選擇午餐、晚餐
 ![lunch](https://user-images.githubusercontent.com/79755310/147723782-6613d5a5-62fd-44e0-9d79-b124e4e90ed7.jpg)
 ![dinner](https://user-images.githubusercontent.com/79755310/147723787-5bccd246-0b6b-4b2c-a7f5-92bf6d30d007.jpg)
 
-輸入完 早/午/晚餐 後的完整攝取資訊
+# 輸入完 早/午/晚餐 後的完整攝取資訊
 ![show_all_nutrition](https://user-images.githubusercontent.com/79755310/147723986-f7eb2c12-04bb-4ca2-95a6-f2a14fccf285.jpg)
 
 
-Deny states : 4 deny states
+# Deny states : 4 deny states
 1.餘額不足
 ![money_deny](https://user-images.githubusercontent.com/79755310/147723889-46140f91-18c1-4821-9af2-9590d9674094.jpg)
 
