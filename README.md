@@ -1,5 +1,5 @@
 # QRCode
-
+![image](https://user-images.githubusercontent.com/79755310/147879577-4dcb84b1-0fcf-4c1c-acfa-5041da91aa78.png)
 
 # Usage
 # 輸入start開始
